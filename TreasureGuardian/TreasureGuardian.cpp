@@ -239,7 +239,7 @@ void iDraw()
 		//	fireball_y -= 2;
 		//}
 
-		///*________________________________________Checking collision, showing fire & counting score._______________________________________*/
+		/*________________________________________Checking collision, showing fire & counting score._______________________________________*/
 
 		//if (checkCollison(fireball_x, fireball_y, 57.8, 40.4, 1040, 222, 90, 90))
 		//{

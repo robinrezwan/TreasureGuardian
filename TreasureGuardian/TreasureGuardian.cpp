@@ -173,7 +173,7 @@ void iDraw()
 
 	else if (level == 2)
 	{
-		cout << "Level two codes running!" << endl;
+		//cout << "Level two codes running!" << endl;
 
 		/*_______________________________________________Showing background for level two.______________________________________________*/
 

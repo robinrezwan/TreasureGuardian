@@ -241,10 +241,7 @@ void iDraw()
 
 		/*________________________________________Checking collision, showing fire & counting score._______________________________________*/
 
-		//if (checkCollison(fireball_x, fireball_y, 57.8, 40.4, 1040, 222, 90, 90))
-		//{
-		//	cout << "Boom!" << endl;
-		//}
+
 	}
 
 	/*________________________________________________Game over codes start from here.____________________________________________________*/

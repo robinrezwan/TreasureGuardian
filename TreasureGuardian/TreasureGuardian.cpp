@@ -233,11 +233,6 @@ void iDraw()
 
 		/*_______________________________________________________Throwing fireball.________________________________________________________*/
 
-		//if (throw_fireball == 1)
-		//{
-		//	iShowImage(fireball_x, fireball_y, 57.8, 40.4, fireball);
-		//	fireball_y -= 2;
-		//}
 
 		/*________________________________________Checking collision, showing fire & counting score._______________________________________*/
 

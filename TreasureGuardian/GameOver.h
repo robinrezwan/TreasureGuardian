@@ -7,7 +7,7 @@
 //#include "Variables.h"
 #include "Score.h"
 
-/*______________________________________________Function for checking score rank._________________________________________________________*/
+/*______________________________________________Function for checking score rank.______________________________________________________*/
 
 /*Checks if the player has achieved a position in the high score list comparing his score with the previously saved high scores reading from a file.
 Doing so, it sets the rank value. It also sets the values for the indexes of game over page image and star badge image.*/

@@ -51,7 +51,7 @@ int selectMenuOption(int menu_option, int menu_x, int menu_y)
 	return menu_option;
 }
 
-/*_______________________________________________________Showing menu pages.__________________________________________________________*/
+/*________________________________________________________Showing menu pages.__________________________________________________________*/
 
 //This function runs all the codes for menu.
 void showMenu()

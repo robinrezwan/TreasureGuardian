@@ -1,7 +1,7 @@
 #ifndef COLLISION_H_INCLUDED
 #define COLLISION_H_INCLUDED
 
-/*_____________________________________________Checking if collision is happenning or not._________________________________________________*/
+/*____________________________________________Checking if collision is happenning or not.______________________________________________*/
 
 bool current_collision = false;
 bool last_collision = false;

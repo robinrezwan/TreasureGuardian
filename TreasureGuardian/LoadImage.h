@@ -109,7 +109,7 @@ void loadImage()
 	}
 
 	enemy_image_level2 = iLoadImage("level_two\\enemy\\enemy_000.png");
-	bomb = iLoadImage("level_one\\enemy\\bomb.png");
+	bomb_image = iLoadImage("level_one\\enemy\\bomb.png");
 
 	/*___________________________________________________________Game Over_____________________________________________________________*/
 

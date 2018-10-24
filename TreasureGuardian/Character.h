@@ -3,8 +3,8 @@
 
 #include "Variables.h"
 
-/*________________________________________________Changing character images for level one.__________________________________________________*/
-/********************************************************************************************************************************************/
+/*______________________________________________Changing character images for level one._______________________________________________*/
+/***************************************************************************************************************************************/
 
 //Function for changing the index of player’s image in idle condition where multiple images are stored in an array.
 void changeIdleImage() //When standing or standing backward.
@@ -70,7 +70,7 @@ void changeRunningBackImage()
 	}
 }
 
-/*______________________________________Funtion for jumping up and coming down. Called from a timer._______________________________________*/
+/*____________________________________Funtion for jumping up and coming down. Called from a timer._____________________________________*/
 
 //Function for jumping. This will be called from void iSpecialKeyboard() when up key is pressed.
 void Jump()
@@ -109,7 +109,7 @@ void Jump()
 	}
 }
 
-/*________________________________________________For showing character from iDraw()._______________________________________________________*/
+/*________________________________________________For showing character from iDraw().__________________________________________________*/
 
 void showPlayer1()
 {
@@ -174,8 +174,8 @@ void showPlayer1()
 	}
 }
 
-/*________________________________________________Changing character images for level two.__________________________________________________*/
-/********************************************************************************************************************************************/
+/*_______________________________________________Changing character images for level two.______________________________________________*/
+/***************************************************************************************************************************************/
 
 //Changes plane image index.
 void changePlaneImage()

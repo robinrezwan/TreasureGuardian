@@ -3,7 +3,7 @@
 
 #include "Collision.h"
 
-/*_____________________________________________________Structure for level one enemy._______________________________________________________*/
+/*___________________________________________________Structure for level one enemy.____________________________________________________*/
 
 struct Enemy
 {
@@ -29,7 +29,7 @@ struct Enemy
 	}
 }enemy1(1820, 68, true, 10, 0), enemy2(1720, 68, true, 10, 0), enemy3(1620, 68, true, 10, 0), enemy4(1520, 68, true, 10, 0);
 
-/*_______________________________________________________Showing enemy for level one._______________________________________________________*/
+/*_____________________________________________________Showing enemy for level one.____________________________________________________*/
 
 void showEnemy()
 {
@@ -37,7 +37,7 @@ void showEnemy()
 	iShowImage(enemy2.x, enemy2.y, 180, 135, enemy1.image[enemy1.index]);
 	iShowImage(enemy3.x, enemy3.y, 170, 135, enemy3.image[enemy3.index]);
 	//iShowImage(enemy4.x, enemy4.y, 120, 130, enemy_image);
-	iShowImage(bomb_x, 75, 50, 60, bomb);
+	iShowImage(bomb_x, 75, 50, 60, bomb_image);
 }
 
 void changeEnemyPosition() {
@@ -116,7 +116,7 @@ void changeEnemyPosition() {
 	}
 }
 
-/*______________________________________________Player, Fire and enemy collision for level one.____________________________________________*/
+/*_____________________________________________Player, Fire and enemy collision for level one._________________________________________*/
 
 void fireEnemyCollision()
 {
@@ -230,7 +230,7 @@ void playerEnemyCollision()
 	}
 }
 
-/*_____________________________________________________Structure for level one enemy._______________________________________________________*/
+/*___________________________________________________Structure for level two enemy.____________________________________________________*/
 
 struct Enemy2
 {
@@ -257,7 +257,7 @@ struct Enemy2
 }enemy11(1820, 520, true, 10, 0), enemy22(1820, 675, true, 10, 0), enemy33(1820, 557, true, 10, 0), enemy44(1820, 469, true, 10, 0);
 
 
-/*_______________________________________________________Showing enemy for level two._______________________________________________________*/
+/*____________________________________________________Showing enemy for level two._____________________________________________________*/
 
 void showEnemy2()
 {
@@ -350,7 +350,7 @@ void changeEnemyPosition2() {
 	}
 }
 
-/*______________________________________________Player, Fire and enemy collision for level two.____________________________________________*/
+/*___________________________________________Player, Fire and enemy collision for level two.__________________________________________*/
 
 void fireEnemyCollision2()
 {
@@ -414,7 +414,7 @@ void playerEnemyCollision2()
 	}
 }
 
-/*_____________________________________________Function for enemy position changing timer.___________________________________________________*/
+/*___________________________________________Function for enemy position changing timer._______________________________________________*/
 
 void enemyPosition()
 {

@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-/*___________________________________________________Structure for saving high scores.___________________________________________________*/
+/*__________________________________________________Structure for saving high scores.__________________________________________________*/
 
 struct HighScore
 {
@@ -23,7 +23,7 @@ struct HighScore
 	}
 } high_score;
 
-/*___________________________________________________Function for showing high scores.___________________________________________________*/
+/*__________________________________________________Function for showing high scores.__________________________________________________*/
 
 //Shows high scores on the high score page reading from a file.
 void showHighScores()
@@ -54,7 +54,7 @@ void showHighScores()
 	}
 }
 
-/*_________________________________________________Function for setting player's name.___________________________________________________*/
+/*________________________________________________Function for setting player's name.__________________________________________________*/
 
 //Shows the player's name on the screen which is being taken input from the keyboard by the function void inputName().
 void setPlayerName()
@@ -74,7 +74,7 @@ void setPlayerName()
 	}
 }
 
-/*___________________________________Function for text box activation to take player's name input.______________________________________*/
+/*___________________________________Function for text box activation to take player's name input._____________________________________*/
 
 //To activate text box for name input.
 void activateTextBox(int mx, int my)
@@ -89,7 +89,7 @@ void activateTextBox(int mx, int my)
 	}
 }
 
-/*_________________________________Function for writing in the text box to take player's name input.____________________________________*/
+/*_________________________________Function for writing in the text box to take player's name input.___________________________________*/
 
 //For taking input the player's name in the text box.
 void inputName(unsigned char key)
@@ -115,7 +115,7 @@ void inputName(unsigned char key)
 	}
 }
 
-/*___________________________________Function for saving high score and the player's name in a file._____________________________________*/
+/*___________________________________Function for saving high score and the player's name in a file.___________________________________*/
 
 //Saves the player's name and score in a binary file.
 void saveScore()

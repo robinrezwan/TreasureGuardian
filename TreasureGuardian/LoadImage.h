@@ -8,7 +8,7 @@
 
 void loadImage()
 {
-	/*Menu*/
+	/*_____________________________________________________________Menu________________________________________________________________*/
 
 	for (int i = 0; i <= 5; i++)
 	{
@@ -20,7 +20,7 @@ void loadImage()
 	
 	life_gem1.image = iLoadImage("life_gem\\life_potion1.png");
 
-	/*___________________________________________________________Level One._______________________________________________________________*/
+	/*__________________________________________________________Level One._____________________________________________________________*/
 
 	//level_one = iLoadImage("level_one\\level_one.png");
 
@@ -88,12 +88,7 @@ void loadImage()
 		enemy3.image[i] = iLoadImage(enemy3_image_location[i]);
 	}
 
-	/*___________________________________________________________Level Two._______________________________________________________________*/
-
-	//background = iLoadImage("level_two\\background.png");
-	//plane = iLoadImage("level_two\\plane.png");
-	//fireball = iLoadImage("level_two\\fireball.png");
-	//goblin = iLoadImage("level_two\\goblin.png");
+	/*__________________________________________________________Level Two._____________________________________________________________*/
 
 	background_two0 = iLoadImage("level_two\\background\\background_two0.png");
 
@@ -113,8 +108,8 @@ void loadImage()
 		player2.image_plane[i] = iLoadImage(player_plane_image[i]);
 	}
 
-	enemy_image_lvl2 = iLoadImage("level_two\\enemy\\enemy_000.png");
-	bomb = iLoadImage("level_two\\enemy\\bomb.png");
+	enemy_image_level2 = iLoadImage("level_two\\enemy\\enemy_000.png");
+	bomb = iLoadImage("level_one\\enemy\\bomb.png");
 
 	/*___________________________________________________________Game Over_____________________________________________________________*/
 

@@ -109,7 +109,7 @@ void inputName(unsigned char key)
 			{
 				high_score.name[name_index] = key;
 				name_index++;
-				cout << high_score.name << endl;
+				//cout << high_score.name << endl;
 			}
 		}
 	}
@@ -173,7 +173,7 @@ void saveScore()
 	else
 	{
 		fwrite(&high_score_temp, sizeof(struct HighScore), (element_index + 1), fp);
-		cout << "Score saved!" << endl;
+		//cout << "Score saved!" << endl;
 	}
 
 	fclose(fp);

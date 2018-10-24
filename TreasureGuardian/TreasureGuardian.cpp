@@ -10,10 +10,11 @@
 #include "Background.h"
 #include "Character.h"
 #include "LifeGem.h"
-#include "LevelTwo.h"
 #include "GameOver.h"
 #include "Score.h"
 #include "Enemy.h"
+#include "LevelOne.h"
+#include "LevelTwo.h"
 
 #include <iostream>
 using namespace std;
@@ -22,177 +23,30 @@ void iDraw()
 {
 	iClear();
 
-	/*______________________________________________________Showing menu pages.___________________________________________________________*/
-	/**************************************************************************************************************************************/
+	/*_____________________________________________________Showing menu pages._________________________________________________________*/
 
 	if (menu_option != 1) //No image ID for index 1. Because we have level one in that option.
 	{
-		//cout << "Menu codes running!" << endl;
-
-		iShowImage(0, 0, SCREEN_WIDTH, SCREEN_HIGHT, menu_image[menu_option]); /*Shows all the menu pages from an arry of images.
-		The image index changes due to calling int selectOption() from void iMouse().*/
-
-		if (menu_option == 2) //If the high score page is openned.
-		{
-			showHighScores(); //Showing the high score list.
-		}
+		showMenu(); //This function runs all the codes for menu.
 	}
 
-	/*________________________________________________Level one codes start from here.____________________________________________________*/
-	/**************************************************************************************************************************************/
+	/*________________________________________________Level one codes runs from here.__________________________________________________*/
 
 	else if (level == 1)
 	{
-		//cout << "Level one codes running!" << endl;
-
-		/*_______________________________________________Showing background for level one.______________________________________________*/
-
-		showBackground1();
-
-		/*________________________________________________Showing characters for level one.________________________________________________*/
-
-		showPlayer1();
-
-		/*_________________________________________________Showing player's firing._______________________________________________________*/
-
-		if (fire && (player1.condition == 0 || player1.condition == 2))
-		{
-			iShowImage(bullet_x, player1.y + 40, 20, 10, bullet_image);
-			bullet_x += 10;
-			if (bullet_x > 1520)
-			{
-				fire = false;
-				bullet_x = player1.x + 110;
-			}
-		}
-
-		if (fire && (player1.condition == 1 || player1.condition == 3))
-		{
-			iShowImage(bullet_back_x, player1.y + 40, 20, 20, bullet_back_image);
-			bullet_back_x -= 10;
-			if (bullet_back_x < -20)
-			{
-				fire = false;
-				bullet_back_x = player1.x;
-			}
-		}
-
-		/*__________________________________Showing life potion, cecking collision & counting life score.____________________________________*/
-
-		if (life_gem1.x % 2 == 0 || life_gem1.x % 3 == 0)
-		{
-			if (life_gem1.state)
-			{
-				iShowImage(life_gem1.x, life_gem1.y, life_gem1.dimension_x, life_gem1.dimension_y, life_gem1.image);
-
-				if (checkCollision(player1.x + player1.extended_x, player1.y + player1.extended_y + jumping_height, 80, 130, life_gem1.x, life_gem1.y, 48, 40))
-				{
-					//cout << "Boom!" << endl;
-					life_gem1.state = false;
-					player1.life += 10;
-				}
-			}
-		}
-
-		/*________________________________________________________Showing enemy._________________________________________________________*/
-
-		showEnemy();
-
-		/*_________________________________________________Player, Fire and enemy collision.______________________________________________*/
-
-		fireEnemyCollision();
-		playerEnemyCollision();
-
-		/*__________________________________________________Showing life and score bar.____________________________________________________*/
-
-		iSetColor(255, 0, 0);
-		iText(50, 760, "Life: ", GLUT_BITMAP_HELVETICA_18);
-		iRectangle(95, 755, 100, 25);
-		iFilledRectangle(95, 755, player1.life, 26);
-
-		iText(50, 730, "Score: ", GLUT_BITMAP_HELVETICA_18);
-		sprintf(score_string, "%d", player1.score);
-		iText(120, 730, score_string, GLUT_BITMAP_HELVETICA_18);
-
-		if (player1.score >= 200)
-		{
-			level = 2;
-			player2.x = 460;
-			player2.y = 600;
-		}
+		levelOne(); //This function runs all the codes for level one.
 	}
 
-	/*________________________________________________Level two codes start from here.____________________________________________________*/
-	/**************************************************************************************************************************************/
+	/*_______________________________________________Level two codes runs from here.___________________________________________________*/
 
 	else if (level == 2)
 	{
-		//cout << "Level two codes running!" << endl;
-
-		/*________________________________________________Showing background for level two.________________________________________________*/
-
-		showBackground2();
-
-		/*__________________________________Showing life potion, cecking collision & counting score.______________________________________*/
-		
-		if (life_gem2.x % 2 == 0 || life_gem2.x % 3 == 0)
-		{
-			if (life_gem2.state)
-			{
-				iShowImage(life_gem2.x, life_gem2.y, life_gem2.dimension_x, life_gem2.dimension_y, life_gem1.image);
-
-				if (checkCollision(player2.x + player2.extended_x, player2.y + player2.extended_y, 140, 90, life_gem2.x, life_gem2.y, 48, 40))
-				{
-					//cout << "Boom!" << endl;
-					life_gem2.state = false;
-					player1.life += 10;
-				}
-			}
-		}
-
-		/*________________________________________________Showing characters for level two.________________________________________________*/
-
-		iShowImage(player2.x, player2.y, 160, 160, player2.image_plane[player_plane_index]);
-
-		/*_________________________________________________Showing player's firing._______________________________________________________*/
-
-		if (fire)
-		{
-			bullet_y = player2.y + 20;
-			iShowImage(bullet_x, bullet_y, 20, 10, bullet_image);
-			bullet_x += 10;
-			if (bullet_x > 1520)
-			{
-				fire = false;
-				bullet_x = player2.x + 110;
-			}
-		}
-
-		/*___________________________________________________Showing enemy for level two.__________________________________________________*/
-
-		showEnemy2();
-
-		/*_________________________________________________Player, Fire and enemy collision.______________________________________________*/
-
-		fireEnemyCollision2();
-		playerEnemyCollision2();
-
-		/*__________________________________________________Showing life and score bar.____________________________________________________*/
-
-		iSetColor(255, 0, 0);
-		iText(50, 760, "Life: ", GLUT_BITMAP_HELVETICA_18);
-		iRectangle(95, 755, 100, 25);
-		iFilledRectangle(95, 755, player1.life, 26);
-
-		iText(50, 730, "Score: ", GLUT_BITMAP_HELVETICA_18);
-		sprintf(score_string, "%d", player1.score);
-		iText(120, 730, score_string, GLUT_BITMAP_HELVETICA_18);
+		levelTwo(); //This function runs all the codes for level two.
 	}
 
-	/*________________________________________________Game over codes start from here.____________________________________________________*/
-	/**************************************************************************************************************************************/
+	/*_________________________________________________Game over codes start from here.________________________________________________*/
 
-	if ((player1.life <= 0) && menu_option != 0) //Checking if the game is over.
+	if (player1.life <= 0 && menu_option != 0) //Checking if the game is over.
 	{
 		game_over = true;
 		level = 0;
@@ -227,8 +81,7 @@ void iDraw()
 	}
 }
 
-/*_______________________________________________________Mouse Controls.______________________________________________________________*/
-/**************************************************************************************************************************************/
+/*_________________________________________________________Mouse Controls._____________________________________________________________*/
 
 void iMouseMove(int mx, int my)
 {
@@ -249,7 +102,7 @@ void iMouse(int button, int state, int mx, int my)
 
 		//printf("%d, %d\n", menu_x, menu_y);
 
-		menu_option = selectOption(menu_option, menu_x, menu_y);
+		menu_option = selectMenuOption(menu_option, menu_x, menu_y);
 
 		if (menu_option == 1) //For sound.
 		{
@@ -266,8 +119,7 @@ void iMouse(int button, int state, int mx, int my)
 	}
 }
 
-/*______________________________________________________Keyboard controls.____________________________________________________________*/
-/**************************************************************************************************************************************/
+/*_______________________________________________________Keyboard controls.____________________________________________________________*/
 
 void iKeyboard(unsigned char key)
 {
@@ -384,8 +236,6 @@ void iSpecialKeyboard(unsigned char key)
 
 	if (key == GLUT_KEY_UP)
 	{
-		plane_y += 5;
-
 		/*Moving character for level one.*/
 
 		if (player1.condition <= 3)
@@ -430,8 +280,8 @@ void iSpecialKeyboard(unsigned char key)
 	}
 }
 
-/*________________________________________________________Main function.______________________________________________________________*/
-/**************************************************************************************************************************************/
+/*_________________________________________________________Main function.______________________________________________________________*/
+/***************************************************************************************************************************************/
 
 int main()
 {
@@ -439,14 +289,14 @@ int main()
 	background_two2_timer = iSetTimer(20, changeBackgroundTwo2);
 	background_two3_timer = iSetTimer(10, changeBackgroundTwo3);
 
-	player_timer1 = iSetTimer(100, changeIdleImage);
+	iSetTimer(100, changeIdleImage);
 	iSetTimer(20, Jump);
 
 	iSetTimer(5000, positionLifeGem);
 
 	iSetTimer(10, enemyPosition);
 
-	plane_timer = iSetTimer(100, changePlaneImage);
+	iSetTimer(100, changePlaneImage);
 
 	controlSound(play_sound, 0);
 

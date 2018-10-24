@@ -23,8 +23,6 @@ bool play_sound = true;
 /*Timer Inedex*/
 
 int background_two1_timer, background_two2_timer, background_two3_timer;
-int player_timer1;
-int plane_timer, fireball_timer;
 
 /*Collision*/
 
@@ -164,7 +162,7 @@ int bullet_y;
 
 /*Enemy image for level two.*/
 
-int enemy_image_lvl2;
+int enemy_image_level2;
 int bomb;
 int bomb_x = 1550;
 

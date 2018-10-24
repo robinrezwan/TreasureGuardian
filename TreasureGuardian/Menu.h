@@ -1,9 +1,11 @@
 #ifndef MENU_H_INCLUDED
 #define MENU_H_INCLUDED
 
-//#include "Variables.h"
+#include "Score.h"
 
-int selectOption(int menu_option, int menu_x, int menu_y)
+/*______________________________________________________Menu option selection._________________________________________________________*/
+
+int selectMenuOption(int menu_option, int menu_x, int menu_y)
 {
 	if (menu_option == 0 && !game_over && level != 1 && level != 2)
 	{
@@ -47,6 +49,22 @@ int selectOption(int menu_option, int menu_x, int menu_y)
 	}
 
 	return menu_option;
+}
+
+/*_______________________________________________________Showing menu pages.__________________________________________________________*/
+
+//This function runs all the codes for menu.
+void showMenu()
+{
+	//cout << "Menu codes running!" << endl;
+
+	iShowImage(0, 0, SCREEN_WIDTH, SCREEN_HIGHT, menu_image[menu_option]); /*Shows all the menu pages from an arry of images.
+	The image index changes due to calling int selectOption() from void iMouse().*/
+
+	if (menu_option == 2) //If the high score page is openned.
+	{
+		showHighScores(); //Showing the high score list.
+	}
 }
 
 #endif // !MENU_H_INCLUDED

@@ -263,16 +263,16 @@ void showEnemy2()
 {
 	if (enemy11.state)
 	{
-		iShowImage(enemy11.x, enemy11.y, 130, 95, enemy_image_lvl2);
+		iShowImage(enemy11.x, enemy11.y, 130, 95, enemy_image_level2);
 	}
 
 	if (enemy33.state)
 	{
-		iShowImage(enemy33.x, enemy33.y, 130, 95, enemy_image_lvl2);
+		iShowImage(enemy33.x, enemy33.y, 130, 95, enemy_image_level2);
 	}
 	if (enemy22.state)
 	{
-		iShowImage(enemy22.x, enemy22.y, 130, 95, enemy_image_lvl2);
+		iShowImage(enemy22.x, enemy22.y, 130, 95, enemy_image_level2);
 	}
 }
 

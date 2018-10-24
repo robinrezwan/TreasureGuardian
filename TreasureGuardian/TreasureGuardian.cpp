@@ -47,81 +47,11 @@ void iDraw()
 
 		/*_______________________________________________Showing background for level one.______________________________________________*/
 
-		iShowImage(0, 0, 2512, SCREEN_HIGHT, background_one0); //Shows the most inner still background (the sky).
-		for (int i = 0; i < 2; i++)
-		{
-			iShowImage(background_one1_x[i], 0, 2512, SCREEN_HIGHT, background_one1[i]); //Shows the inner moving background (the clouds).
-		}
-		for (int i = 0; i < 2; i++)
-		{
-			iShowImage(background_one2_x[i], 0, 2512, SCREEN_HIGHT, background_one2[i]); //Shows the second inner moving background (the trees).
-		}
-		for (int i = 0; i < 2; i++)
-		{
-			iShowImage(background_one3_x[i], 0, 2512, SCREEN_HIGHT, background_one3[i]); //Shows the front moving background (the ground).
-		}
+		showBackground1();
 
 		/*________________________________________________Showing characters for level one.________________________________________________*/
 
-		if (player1.condition == 0) //If standing.
-		{
-			iShowImage(player1.x, player1.y, 160, 160, player1.image_idle[player_idle_index]); /*Showing idle images from an array.
-			The image index is being changed by calling void changeIdleImage() from a timer when no key is pressed.*/
-		}
-
-		else if (player1.condition == 1) //If standing backward.
-		{
-			iShowImage(player1.x, player1.y, 160, 160, player1.image_idleback[player_idleback_index]); /*Showing backward idle images from an array.
-			The image index is being changed by calling void changeIdleImage() from a timer when no key is pressed.*/
-		}
-
-		else if (player1.condition == 2) //If running.
-		{
-			iShowImage(player1.x, player1.y, 160, 160, player1.image_running[player_running_index]); /*Showing running images from an array.
-			The image index is being changed by calling void changeRunningImage() from void iSpecialKeyboard() when no right key is pressed.*/
-
-			player1.condition_changer++;
-			if (player1.condition_changer >= 200)
-			{
-				player1.condition_changer = 0;
-				player1.condition = 0;
-			}
-		}
-
-		else if (player1.condition == 3) //If running backward.
-		{
-			iShowImage(player1.x, player1.y, 160, 160, player1.image_runningback[player_runningback_index]); /*Showing running backward images from an array.
-			The image index is being changed by calling void changeRunningBackImage() from void iSpecialKeyboard() when left key is pressed.*/
-
-			player1.condition_changer++;
-			if (player1.condition_changer >= 200)
-			{
-				player1.condition_changer = 0;
-				player1.condition = 1;
-			}
-		}
-
-		else if (player1.condition == 4 || player1.condition == 6) //If jumping.
-		{
-			iShowImage(player1.x, player1.y + jumping_height, 160, 160, player1.image_jumping[player_jumping_index]); /*Showing jumping images from an array.
-			The image index is being changed by calling void Jump() from void iSpecialKeyboard() when up key is pressed.*/
-
-			/*if (jumping_height <= 0)
-			{
-				player1.condition = 0;
-			}*/
-		}
-
-		else if (player1.condition == 5 || player1.condition == 7) //If jumping back.
-		{
-			iShowImage(player1.x, player1.y + jumping_height, 160, 160, player1.image_jumpingback[player_jumping_index]); /*Showing jumping back images from an array.
-			The image index is being changed by calling void Jump() from void iSpecialKeyboard() when up key is pressed.*/
-
-			/*if (jumping_height <= 0)
-			{
-				player1.condition = 1;
-			}*/
-		}
+		showPlayer1();
 
 		/*_________________________________________________Showing player's firing._______________________________________________________*/
 
@@ -147,7 +77,7 @@ void iDraw()
 			}
 		}
 
-		/*__________________________________Showing life potion, cecking collision & counting score.______________________________________*/
+		/*__________________________________Showing life potion, cecking collision & counting life score.____________________________________*/
 
 		if (life_gem1.x % 2 == 0 || life_gem1.x % 3 == 0)
 		{
@@ -155,10 +85,11 @@ void iDraw()
 			{
 				iShowImage(life_gem1.x, life_gem1.y, life_gem1.dimension_x, life_gem1.dimension_y, life_gem1.image);
 
-				if (checkCollison(player1.x + player1.extended_x, player1.y + player1.extended_y + jumping_height, 80, 130, life_gem1.x, life_gem1.y, 48, 40))
+				if (checkCollision(player1.x + player1.extended_x, player1.y + player1.extended_y + jumping_height, 80, 130, life_gem1.x, life_gem1.y, 48, 40))
 				{
-					cout << "Boom!" << endl;
+					//cout << "Boom!" << endl;
 					life_gem1.state = false;
+					player1.life += 10;
 				}
 			}
 		}
@@ -166,6 +97,29 @@ void iDraw()
 		/*________________________________________________________Showing enemy._________________________________________________________*/
 
 		showEnemy();
+
+		/*_________________________________________________Player, Fire and enemy collision.______________________________________________*/
+
+		fireEnemyCollision();
+		playerEnemyCollision();
+
+		/*__________________________________________________Showing life and score bar.____________________________________________________*/
+
+		iSetColor(255, 0, 0);
+		iText(50, 760, "Life: ", GLUT_BITMAP_HELVETICA_18);
+		iRectangle(95, 755, 100, 25);
+		iFilledRectangle(95, 755, player1.life, 26);
+
+		iText(50, 730, "Score: ", GLUT_BITMAP_HELVETICA_18);
+		sprintf(score_string, "%d", player1.score);
+		iText(120, 730, score_string, GLUT_BITMAP_HELVETICA_18);
+
+		if (player1.score >= 200)
+		{
+			level = 2;
+			player2.x = 460;
+			player2.y = 600;
+		}
 	}
 
 	/*________________________________________________Level two codes start from here.____________________________________________________*/
@@ -175,40 +129,70 @@ void iDraw()
 	{
 		//cout << "Level two codes running!" << endl;
 
-		/*_______________________________________________Showing background for level two.______________________________________________*/
+		/*________________________________________________Showing background for level two.________________________________________________*/
 
-		iShowImage(0, 0, 2512, SCREEN_HIGHT, background_two0); //Shows the most inner still background (the sky).
-		for (int i = 0; i < 2; i++)
+		showBackground2();
+
+		/*__________________________________Showing life potion, cecking collision & counting score.______________________________________*/
+		
+		if (life_gem2.x % 2 == 0 || life_gem2.x % 3 == 0)
 		{
-			iShowImage(background_two1_x[i], 0, 2512, SCREEN_HIGHT, background_two1[i]); //Shows the inner moving background (the clouds and the sea).
+			if (life_gem2.state)
+			{
+				iShowImage(life_gem2.x, life_gem2.y, life_gem2.dimension_x, life_gem2.dimension_y, life_gem1.image);
+
+				if (checkCollision(player2.x + player2.extended_x, player2.y + player2.extended_y, 140, 90, life_gem2.x, life_gem2.y, 48, 40))
+				{
+					//cout << "Boom!" << endl;
+					life_gem2.state = false;
+					player1.life += 10;
+				}
+			}
 		}
-		for (int i = 0; i < 2; i++)
+
+		/*________________________________________________Showing characters for level two.________________________________________________*/
+
+		iShowImage(player2.x, player2.y, 160, 160, player2.image_plane[player_plane_index]);
+
+		/*_________________________________________________Showing player's firing._______________________________________________________*/
+
+		if (fire)
 		{
-			iShowImage(background_two2_x[i], 0, 2512, SCREEN_HIGHT, background_two2[i]); //Shows the second inner moving background (the lands).
+			bullet_y = player2.y + 20;
+			iShowImage(bullet_x, bullet_y, 20, 10, bullet_image);
+			bullet_x += 10;
+			if (bullet_x > 1520)
+			{
+				fire = false;
+				bullet_x = player2.x + 110;
+			}
 		}
-		for (int i = 0; i < 2; i++)
-		{
-			iShowImage(background_two3_x[i], 0, 2512, SCREEN_HIGHT, background_two3[i]); //Shows the front moving background (the front ground).
-		}
 
-		/*_______________________________________________________Showing goblins.__________________________________________________________*/
+		/*___________________________________________________Showing enemy for level two.__________________________________________________*/
 
+		showEnemy2();
 
-		/*____________________________________________________Flipping the plane.__________________________________________________________*/
+		/*_________________________________________________Player, Fire and enemy collision.______________________________________________*/
 
+		fireEnemyCollision2();
+		playerEnemyCollision2();
 
-		/*_______________________________________________________Throwing fireball.________________________________________________________*/
+		/*__________________________________________________Showing life and score bar.____________________________________________________*/
 
+		iSetColor(255, 0, 0);
+		iText(50, 760, "Life: ", GLUT_BITMAP_HELVETICA_18);
+		iRectangle(95, 755, 100, 25);
+		iFilledRectangle(95, 755, player1.life, 26);
 
-		/*________________________________________Checking collision, showing fire & counting score._______________________________________*/
-
-
+		iText(50, 730, "Score: ", GLUT_BITMAP_HELVETICA_18);
+		sprintf(score_string, "%d", player1.score);
+		iText(120, 730, score_string, GLUT_BITMAP_HELVETICA_18);
 	}
 
 	/*________________________________________________Game over codes start from here.____________________________________________________*/
 	/**************************************************************************************************************************************/
 
-	if (player1.life <= 0 && menu_option != 0) //Checking if the game is over.
+	if ((player1.life <= 0) && menu_option != 0) //Checking if the game is over.
 	{
 		game_over = true;
 		level = 0;
@@ -218,11 +202,16 @@ void iDraw()
 	{
 		//cout << "Game over codes running!" << endl;
 
+		level = 0;
+		player1.life = 0;
+		high_score.score = player1.score;
+
 		checkRank(); //Checks the players rank according to his score.
+
 		//cout << "Player rank: " << player_rank << endl;
 
 		iShowImage(0, 0, SCREEN_WIDTH, SCREEN_HIGHT, game_over_image[game_over_index]); //Shows the game over screen.
-		
+
 		//Shows the score on the game over screen.
 		char score_string[20];
 		sprintf(score_string, "%d", player1.score);
@@ -258,7 +247,7 @@ void iMouse(int button, int state, int mx, int my)
 		menu_x = mx;
 		menu_y = my;
 
-		printf("%d, %d\n", menu_x, menu_y);
+		//printf("%d, %d\n", menu_x, menu_y);
 
 		menu_option = selectOption(menu_option, menu_x, menu_y);
 
@@ -299,9 +288,9 @@ void iKeyboard(unsigned char key)
 
 	if (key == ' ')
 	{
-		throw_fireball = 1;
+		/*throw_fireball = 1;
 		fireball_x = plane_x + 40;
-		fireball_y = plane_y;
+		fireball_y = plane_y;*/
 		fire = true;
 	}
 
@@ -319,48 +308,20 @@ void iKeyboard(unsigned char key)
 		}
 	}
 
-	if (key == 'f')
-	{
-		
-	}
-
 	if (key == 'o')
 	{
-		level = 0;
+		/*level = 0;
 		player1.life = 0;
 		player1.score = 2260;
-		high_score.score = player1.score;
-	}
-
-	if (key == 'u')
-	{
-		flip = 1;
-	}
-
-	if (key == 't')
-	{
-		flip = 2;
-	}
-
-	if (key == 'y')
-	{
-		flip = 3;
+		high_score.score = player1.score;*/
 	}
 
 	if (key == '2')
 	{
 		level = 2;
+		player2.score = player1.score;
+		player2.life = player1.life;
 		//menu_option = 6;
-	}
-
-	if (key == '3')
-	{
-
-	}
-
-	if (key == '4')
-	{
-
 	}
 
 	if (key == 'p')
@@ -379,8 +340,6 @@ void iSpecialKeyboard(unsigned char key)
 
 	if (key == GLUT_KEY_LEFT)
 	{
-		plane_x -= 5;
-
 		/*Moving character and background for level one.*/
 
 		if (jumping_height == 0)
@@ -395,12 +354,14 @@ void iSpecialKeyboard(unsigned char key)
 
 		moveBackgroundBack();
 		changeRunningBackImage();
+
+		/*Moves player for level two.*/
+
+		player2.x -= 10;
 	}
 
 	if (key == GLUT_KEY_RIGHT)
 	{
-		plane_x += 10;
-
 		/*Moving character and background for level one.*/
 
 		if (jumping_height == 0)
@@ -415,6 +376,10 @@ void iSpecialKeyboard(unsigned char key)
 
 		moveBackground();
 		changeRunningImage();
+
+		/*Moves player for level two.*/
+
+		player2.x += 10;
 	}
 
 	if (key == GLUT_KEY_UP)
@@ -433,11 +398,17 @@ void iSpecialKeyboard(unsigned char key)
 			jump = true;
 			jumping = true;
 		}
+
+		/*Moves player for level two.*/
+
+		player2.y += 15;
 	}
 
 	if (key == GLUT_KEY_DOWN)
 	{
-		plane_y -= 5;
+		/*Moves player for level two.*/
+
+		player2.y -= 15;
 	}
 
 	if (key == GLUT_KEY_HOME)
@@ -473,25 +444,13 @@ int main()
 
 	iSetTimer(5000, positionLifeGem);
 
-	iSetTimer(10, changeEnemyPosition);
+	iSetTimer(10, enemyPosition);
 
-	plane_timer = iSetTimer(20, movePlane);
-	//fireball_timer = iSetTimer(40, moveFireball);
+	plane_timer = iSetTimer(100, changePlaneImage);
 
 	controlSound(play_sound, 0);
 
 	iInitialize(SCREEN_WIDTH, SCREEN_HIGHT, "TreasureGuardian");
-	dpx = 5;
-	dpy = 0;
-
-	plane_x = 1520;
-	plane_y = 580;
-
-	dfx = 0;
-	dfy = 1;
-
-	fireball_x = -160;
-	fireball_y = -160;
 
 	loadImage();
 

@@ -5,7 +5,7 @@
 
 int selectOption(int menu_option, int menu_x, int menu_y)
 {
-	if (/*!(menu_option >= 1 && menu_option <= 6)*/ menu_option == 0 && !game_over)
+	if (menu_option == 0 && !game_over && level != 1 && level != 2)
 	{
 		if (menu_x >= 537 && menu_x <= 952 && menu_y >= 490 && menu_y <= 547)
 		{
@@ -38,18 +38,13 @@ int selectOption(int menu_option, int menu_x, int menu_y)
 		}
 	}
 
-	else if (menu_option >= 1 && menu_option <= 5)
+	else if (menu_option >= 1 && menu_option <= 5 && level != 1 && level != 2)
 	{
 		if (menu_x >= 547 && menu_x <= 968 && menu_y >= 60 && menu_y <= 116)
 		{
 			menu_option = 0; //To go back.
 		}
 	}
-
-	/*else if (menu_option == 6)
-	{
-		
-	}*/
 
 	return menu_option;
 }

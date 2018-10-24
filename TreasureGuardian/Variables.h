@@ -6,7 +6,7 @@
 #define SCREEN_WIDTH 1520
 #define SCREEN_HIGHT 792
 
-/*Menu*/
+/*__________________________________________________________________Menu____________________________________________________________________*/
 
 int level = 0;
 
@@ -119,6 +119,10 @@ char enemy3_image_location[][39] = { "level_one\\enemy\\enemy_3\\WALK_000.png", 
 "level_one\\enemy\\enemy_3\\WALK_003.png", "level_one\\enemy\\enemy_3\\WALK_004.png", "level_one\\enemy\\enemy_3\\WALK_005.png", "level_one\\enemy\\enemy_3\\WALK_006.png",
 "level_one\\enemy\\enemy_3\\WALK_007.png", "level_one\\enemy\\enemy_3\\WALK_008.png" };
 
+/*Showing score on screen.*/
+
+char score_string[10];
+
 /*____________________________________________________________Level Two__________________________________________________________________*/
 
 /*Background for level two.*/
@@ -134,24 +138,14 @@ int background_two2_x[] = { 0, 2512 }, background_two2_y[] = { 0, 0 };
 int background_two3[2];
 int background_two3_x[] = { 0, 2512 }, background_two3_y[] = { 0, 0 };
 
-int background, plane, fireball, goblin;
+/*Characters for level two.*/
 
-int t1[] = { rand() % 10, 10 + rand() % 20, 30 + rand() % 30, 60 + rand() % 40, 100 + rand() % 50, 150 + rand() % 60, 210 + rand() % 70, 280 + rand() % 80, 360 + rand() % 90, 450 + rand() % 80, 500 + rand() % 70, 570 + rand() % 80 };
-int t2[] = { 1292 + rand() % 10, 1302 + rand() % 10, 1312 + rand() % 10, 1322 + rand() % 10, 1332 + rand() % 10, 1342 + rand() % 10, 1343 + rand() % 10, 1353 + rand() % 10, 1363 + rand() % 10, 1373 + rand() % 10, 1383 + rand() % 10, 1393 + rand() % 10 };
+char player_plane_image[6][33] = { "level_two\\player\\plane_000.png", "level_two\\player\\plane_001.png", "level_two\\player\\plane_002.png",
+"level_two\\player\\plane_003.png", "level_two\\player\\plane_004.png", "level_two\\player\\plane_005.png" };
 
-//int fireball_x, firebal_y;
-int throw_fireball = 0;
+int player_plane_index = 0;
 
-int flip = 0;
-int f = 1;
-int l = 1, h = 2;
-int angle = 2;
-int count = 0;
-
-int scored = 0, life;
-char Score[10000];
-
-/*Game Over and Score Saving*/
+/*________________________________________________________Game Over and Score Saving._______________________________________________________*/
 
 bool game_over = false;
 int game_over_image[3];
@@ -164,8 +158,17 @@ int star_index;
 bool field_active = false;
 int name_index = 0;
 
-/*Others*/
+/*Firing*/
 
+int bullet_y;
+
+/*Enemy image for level two.*/
+
+int enemy_image_lvl2;
+int bomb;
+int bomb_x = 1550;
+
+/*Others*/
 
 
 #endif // !VARIABLES_H_INCLUDED

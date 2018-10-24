@@ -4,6 +4,7 @@
 #include "Variables.h"
 
 /*________________________________________________Changing character images for level one.__________________________________________________*/
+/********************************************************************************************************************************************/
 
 //Function for changing the index of player’s image in idle condition where multiple images are stored in an array.
 void changeIdleImage() //When standing or standing backward.
@@ -105,6 +106,85 @@ void Jump()
 				player_jumping_index--;
 			}
 		}
+	}
+}
+
+/*________________________________________________For showing character from iDraw()._______________________________________________________*/
+
+void showPlayer1()
+{
+	if (player1.condition == 0) //If standing.
+	{
+		iShowImage(player1.x, player1.y, 160, 160, player1.image_idle[player_idle_index]); /*Showing idle images from an array.
+		The image index is being changed by calling void changeIdleImage() from a timer when no key is pressed.*/
+	}
+
+	else if (player1.condition == 1) //If standing backward.
+	{
+		iShowImage(player1.x, player1.y, 160, 160, player1.image_idleback[player_idleback_index]); /*Showing backward idle images from an array.
+		The image index is being changed by calling void changeIdleImage() from a timer when no key is pressed.*/
+	}
+
+	else if (player1.condition == 2) //If running.
+	{
+		iShowImage(player1.x, player1.y, 160, 160, player1.image_running[player_running_index]); /*Showing running images from an array.
+		The image index is being changed by calling void changeRunningImage() from void iSpecialKeyboard() when no right key is pressed.*/
+
+		player1.condition_changer++;
+		if (player1.condition_changer >= 200)
+		{
+			player1.condition_changer = 0;
+			player1.condition = 0;
+		}
+	}
+
+	else if (player1.condition == 3) //If running backward.
+	{
+		iShowImage(player1.x, player1.y, 160, 160, player1.image_runningback[player_runningback_index]); /*Showing running backward images from an array.
+		The image index is being changed by calling void changeRunningBackImage() from void iSpecialKeyboard() when left key is pressed.*/
+
+		player1.condition_changer++;
+		if (player1.condition_changer >= 200)
+		{
+			player1.condition_changer = 0;
+			player1.condition = 1;
+		}
+	}
+
+	else if (player1.condition == 4 || player1.condition == 6) //If jumping.
+	{
+		iShowImage(player1.x, player1.y + jumping_height, 160, 160, player1.image_jumping[player_jumping_index]); /*Showing jumping images from an array.
+		The image index is being changed by calling void Jump() from void iSpecialKeyboard() when up key is pressed.*/
+
+	/*if (jumping_height <= 0)
+	{
+		player1.condition = 0;
+	}*/
+	}
+
+	else if (player1.condition == 5 || player1.condition == 7) //If jumping back.
+	{
+		iShowImage(player1.x, player1.y + jumping_height, 160, 160, player1.image_jumpingback[player_jumping_index]); /*Showing jumping back images from an array.
+		The image index is being changed by calling void Jump() from void iSpecialKeyboard() when up key is pressed.*/
+
+	/*if (jumping_height <= 0)
+	{
+		player1.condition = 1;
+	}*/
+	}
+}
+
+/*________________________________________________Changing character images for level two.__________________________________________________*/
+/********************************************************************************************************************************************/
+
+//Changes plane image index.
+void changePlaneImage()
+{
+	player_plane_index++;
+
+	if (player_plane_index > 5)
+	{
+		player_plane_index = 0;
 	}
 }
 

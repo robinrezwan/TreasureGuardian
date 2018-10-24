@@ -106,6 +106,16 @@ void loadImage()
 	background_two3[0] = iLoadImage("level_two\\background\\background_two3.png");
 	background_two3[1] = iLoadImage("level_two\\background\\background_two3.png");
 
+	/*Characters for level two.*/
+
+	for (int i = 0; i <= 5; i++)
+	{
+		player2.image_plane[i] = iLoadImage(player_plane_image[i]);
+	}
+
+	enemy_image_lvl2 = iLoadImage("level_two\\enemy\\enemy_000.png");
+	bomb = iLoadImage("level_two\\enemy\\bomb.png");
+
 	/*___________________________________________________________Game Over_____________________________________________________________*/
 
 	game_over_image[0] = iLoadImage("game_over\\game_over0.png");

@@ -131,6 +131,25 @@ void moveBackgroundBack()
 	}
 }
 
+/*________________________________________________For showing background from iDraw()._______________________________________________________*/
+
+void showBackground1()
+{
+	iShowImage(0, 0, 2512, SCREEN_HIGHT, background_one0); //Shows the most inner still background (the sky).
+	for (int i = 0; i < 2; i++)
+	{
+		iShowImage(background_one1_x[i], 0, 2512, SCREEN_HIGHT, background_one1[i]); //Shows the inner moving background (the clouds).
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		iShowImage(background_one2_x[i], 0, 2512, SCREEN_HIGHT, background_one2[i]); //Shows the second inner moving background (the trees).
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		iShowImage(background_one3_x[i], 0, 2512, SCREEN_HIGHT, background_one3[i]); //Shows the front moving background (the ground).
+	}
+}
+
 /*________________________________________Level two background moving codes start from here.____________________________________________*/
 /****************************************************************************************************************************************/
 
@@ -171,6 +190,23 @@ void changeBackgroundTwo3()
 	}
 }
 
+/*________________________________________________For showing background from iDraw()._______________________________________________________*/
 
+void showBackground2()
+{
+	iShowImage(0, 0, 2512, SCREEN_HIGHT, background_two0); //Shows the most inner still background (the sky).
+	for (int i = 0; i < 2; i++)
+	{
+		iShowImage(background_two1_x[i], 0, 2512, SCREEN_HIGHT, background_two1[i]); //Shows the inner moving background (the clouds and the sea).
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		iShowImage(background_two2_x[i], 0, 2512, SCREEN_HIGHT, background_two2[i]); //Shows the second inner moving background (the lands).
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		iShowImage(background_two3_x[i], 0, 2512, SCREEN_HIGHT, background_two3[i]); //Shows the front moving background (the front ground).
+	}
+}
 
 #endif // !BACKGROUND_H_INCLUDED

@@ -8,7 +8,7 @@ struct Player
 	int x, y;
 	int dimension_x, dimension_y;
 	int extended_x, extended_y; //As the images have some blank spaces around the character.
-	int condition;
+	int condition; //This number will represent if the player standing, walking or jumping. 
 	int condition_changer;
 	bool dead;
 	int score;

@@ -25,7 +25,7 @@ void iDraw()
 
 	/*_____________________________________________________Showing menu pages._________________________________________________________*/
 
-	if (menu_option != 1) //No image ID for index 1. Because we have level one in that option.
+	if (menu_option == 0 || (menu_option >= 2 && menu_option <= 5))
 	{
 		showMenu(); //This function runs all the codes for menu.
 	}
@@ -97,20 +97,27 @@ void iMouse(int button, int state, int mx, int my)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
-		menu_x = mx;
-		menu_y = my;
+		//printf("%d, %d\n", mx, my);
 
-		//printf("%d, %d\n", menu_x, menu_y);
-
-		menu_option = selectMenuOption(menu_option, menu_x, menu_y);
-
-		if (menu_option == 1) //For sound.
+		if (menu_option == 0 || (menu_option >= 2 && menu_option <= 5)) //If the game is on the menu page.
 		{
-			level = 1;
-			controlSound(true, 1);
+			menu_x = mx;
+			menu_y = my;
+			
+			menu_option = selectMenuOption(menu_option, menu_x, menu_y);
 		}
 
-		activateTextBox(mx, my); //If high score is achieved.
+		if (menu_option == 1)
+		{
+			level = 1;
+			menu_option = 6; //Because the game is not in the menu state anymore.
+			controlSound(true, 1); //For sound.
+		}
+
+		if (game_over_index == 1 || game_over_index == 2) //If high score is achieved.
+		{
+			activateTextBox(mx, my); //This will activate the text box to enter high scorer's name.
+		}
 	}
 
 	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN)
@@ -123,26 +130,28 @@ void iMouse(int button, int state, int mx, int my)
 
 void iKeyboard(unsigned char key)
 {
-	inputName(key); //If high score is achieved.
+	if (field_active) //If high score is achieved and texbox is active for entering name.
+	{
+		inputName(key);
+	}
 
 	if (key == '\r')
 	{
-		if (game_over && player_rank != 0) //Parts of this block are being used temporarily.
+		if (field_active && game_over && player_rank != 0) //This block will execute after entering the high scorer's name and pressing Enter.
 		{
 			field_active = false; //To deactivate the name input text box.
 			saveScore();
-			game_over = false;
+			memset(high_score.name, NULL, sizeof(high_score.name)); //Clearing the name after saving the high score.
+			name_index = 0;
 			player1.life = 100;
 			player1.score = 0;
+			game_over = false;
 			menu_option = 0;
 		}
 	}
 
 	if (key == ' ')
 	{
-		/*throw_fireball = 1;
-		fireball_x = plane_x + 40;
-		fireball_y = plane_y;*/
 		fire = true;
 	}
 

@@ -7,7 +7,7 @@
 
 void controlSound(bool play_sound, int sound_index)
 {
-	if (play_sound)
+	/*if (play_sound)
 	{
 		if (sound_index == 0)
 		{
@@ -23,7 +23,7 @@ void controlSound(bool play_sound, int sound_index)
 	else if (!play_sound)
 	{
 		PlaySound(0, 0, 0);
-	}
+	}*/
 }
 
 #endif // !SOUND_H_INCLUDED

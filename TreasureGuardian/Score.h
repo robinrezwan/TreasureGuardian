@@ -84,18 +84,19 @@ void activateTextBox(int mx, int my)
 		if (mx >= 525 && mx <= 995 && my >= 290 && my <= 348)
 		{
 			field_active = true;
-			//cout << "Text box activated." << endl;
+			cout << "Text box activated." << endl;
 		}
 	}
 }
 
 /*_________________________________Function for writing in the text box to take player's name input.___________________________________*/
 
-//For taking input the player's name in the text box.
+//For taking input the player's name through the text box.
 void inputName(unsigned char key)
 {
 	if (game_over && player_rank >= 1 && player_rank <= 5)
 	{
+		//cout << "Entering text at index: " << name_index << endl;
 		if (field_active && name_index < 18)
 		{
 			if (key == '\b')
@@ -105,10 +106,9 @@ void inputName(unsigned char key)
 					high_score.name[--name_index] = NULL;
 				}
 			}
-			else if(key != '\r' && (key >= 'A' && key <= 'Z' || key >= 'a' && key <= 'z' || key == ' '))
+			else if(key != '\r' && (key >= 'A' && key <= 'Z' || key >= 'a' && key <= 'z' || key >= '0' && key <= '9' || key == ' '))
 			{
-				high_score.name[name_index] = key;
-				name_index++;
+				high_score.name[name_index++] = key;
 				//cout << high_score.name << endl;
 			}
 		}
@@ -117,7 +117,7 @@ void inputName(unsigned char key)
 
 /*___________________________________Function for saving high score and the player's name in a file.___________________________________*/
 
-//Saves the player's name and score in a binary file.
+//This function saves the player's name and score in a binary file.
 void saveScore()
 {
 	FILE *fp = fopen("high_scores.bin", "rb");
@@ -158,10 +158,10 @@ void saveScore()
 	/*Inserting new element at given position according to player rank.*/
 	high_score_temp[player_rank - 1] = high_score;
 
-	for (int i = 0; i <= element_index; i++)
+	/*for (int i = 0; i <= element_index; i++)
 	{
 		cout << high_score_temp[i].name << "\t" << high_score_temp[i].score << endl;
-	}
+	}*/
 
 	fp = fopen("high_scores.bin", "wb");
 

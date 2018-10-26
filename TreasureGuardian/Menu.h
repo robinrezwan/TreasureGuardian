@@ -5,6 +5,7 @@
 
 /*______________________________________________________Menu option selection._________________________________________________________*/
 
+//This function selects which option of the menu is clicked.
 int selectMenuOption(int menu_option, int menu_x, int menu_y)
 {
 	if (menu_option == 0 && !game_over && level != 1 && level != 2)
@@ -40,7 +41,7 @@ int selectMenuOption(int menu_option, int menu_x, int menu_y)
 		}
 	}
 
-	else if (menu_option >= 1 && menu_option <= 5 && level != 1 && level != 2)
+	else if (menu_option > 1 && menu_option <= 5 && level != 1 && level != 2)
 	{
 		if (menu_x >= 547 && menu_x <= 968 && menu_y >= 60 && menu_y <= 116)
 		{

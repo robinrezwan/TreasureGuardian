@@ -1,8 +1,7 @@
 #ifndef LOADIMAGE_H_INCLUDED
 #define LOADIMAGE_H_INCLUDED
 
-//#include "Variables.h"
-#include "LifeGem.h"
+#include "Objects.h"
 #include "Player.h"
 #include "Enemy.h"
 
@@ -17,12 +16,87 @@ void loadImage()
 			menu_image[i] = iLoadImage(menu_image_location[i]);
 		}
 	}
-	
-	life_gem1.image = iLoadImage("life_gem\\life_potion1.png");
+
+	for (int i = 0; i <= 5; i++)
+	{
+			highlight_image[i] = iLoadImage(highlight_image_location[i]);
+	}
+
+	/*_________________________________________________Custom number font rendering.___________________________________________________*/
+
+	for (int i = 0; i <= 9; i++)
+	{
+		digit_image[i] = iLoadImage(digit_image_location[i]);
+	}
+
+	/*_____________________________________________________Health gem and shield.______________________________________________________*/
+
+	health_gem1.image = iLoadImage("others\\icons\\health.png");
+	health_gem2.image = iLoadImage("others\\icons\\health2.png");
+	shield.image = iLoadImage("others\\icons\\shield.png");
+
+	/*___________________________________________Score, health, shield and magic object bar.___________________________________________*/
+
+	for (int i = 0; i <= 10; i++)
+	{
+		health_bar[i] = iLoadImage(health_bar_image[i]);
+	}
+
+	for (int i = 0; i <= 10; i++)
+	{
+		shield_bar[i] = iLoadImage(shield_bar_image[i]);
+	}
+
+	magic_bar[0] = iLoadImage("others\\icons\\magic_bar000.png");
+	magic_bar[1] = iLoadImage("others\\icons\\magic_bar001.png");
+	magic_bar[2] = iLoadImage("others\\icons\\magic_bar002.png");
+	magic_bar[3] = iLoadImage("others\\icons\\magic_bar003.png");
+
+	score_coin[0] = iLoadImage("others\\icons\\Coin_000.png");
+	score_coin[1] = iLoadImage("others\\icons\\Coin_001.png");
+	score_coin[2] = iLoadImage("others\\icons\\Coin_002.png");
+	score_coin[3] = iLoadImage("others\\icons\\Coin_003.png");
+
+	/*___________________________________________________________Explosion.____________________________________________________________*/
+
+	for (int i = 0; i <= 19; i++)
+	{
+		fire_image[i] = iLoadImage(fire_image_location[i]);
+	}
+
+	/*____________________________________________________________Screens._____________________________________________________________*/
+
+	map_screen[0] = iLoadImage("others\\screens\\map_screen1.png");
+	map_screen[1] = iLoadImage("others\\screens\\map_screen2.png");
+
+	gift_screen = iLoadImage("others\\screens\\land_screen.png");
+	gift_plane[0] = iLoadImage("others\\objects\\bottled_plane.png");
+	gift_plane[1] = iLoadImage("others\\objects\\plane.png");
+	invite = iLoadImage("others\\screens\\invite.png");
+
+	/*________________________________________________________Intro Level One__________________________________________________________*/
+
+	intro_one_background = iLoadImage("intro_level_one\\background.png");
+	stair = iLoadImage("intro_level_one\\stair.png");
+	stair_top_map = iLoadImage("intro_level_one\\stair_top_map.png");
+
+	cannon = iLoadImage("intro_level_one\\cannon.png");
+	fireball = iLoadImage("intro_level_one\\fireball.png");
+
+	for (int i = 0; i <= 7; i++)
+	{
+		goblin.image[i] = iLoadImage(goblin_image_location[i]);
+	}
+
+
+	/*________________________________________________________Intro Level Two__________________________________________________________*/
+
+	intro_two_background = iLoadImage("intro_level_two\\background.png");
+	apple[0] = iLoadImage("intro_level_two\\bad_apple.png");
+	apple[1] = iLoadImage("intro_level_two\\good_apple.png");
+	ring = iLoadImage("intro_level_two\\ring.png");
 
 	/*__________________________________________________________Level One._____________________________________________________________*/
-
-	//level_one = iLoadImage("level_one\\level_one.png");
 
 	/*Background for level one.*/
 
@@ -37,36 +111,42 @@ void loadImage()
 	background_one3[0] = iLoadImage("level_one\\background\\background_one3.png");
 	background_one3[1] = iLoadImage("level_one\\background\\background_one3.png");
 
+	/*Magic objects.*/
+
+	stone = iLoadImage("level_one\\magic_objects\\stone.png");
+	chest = iLoadImage("level_one\\magic_objects\\chest.png");
+	key = iLoadImage("level_one\\magic_objects\\key.png");
+
 	/*Characters for level one.*/
 
 	for (int i = 0; i <= 11; i++)
 	{
-		player1.image_idle[i] = iLoadImage(player_idle_image[i]);
+		ground_player.image_idle[i] = iLoadImage(player_idle_image[i]);
 	}
 
 	for (int i = 0; i <= 11; i++)
 	{
-		player1.image_idleback[i] = iLoadImage(player_idleback_image[i]);
+		ground_player.image_idleback[i] = iLoadImage(player_idleback_image[i]);
 	}
 
 	for (int i = 0; i <= 7; i++)
 	{
-		player1.image_running[i] = iLoadImage(player_running_image[i]);
+		ground_player.image_running[i] = iLoadImage(player_running_image[i]);
 	}
 
 	for (int i = 0; i <= 7; i++)
 	{
-		player1.image_runningback[i] = iLoadImage(player_runningback_image[i]);
+		ground_player.image_runningback[i] = iLoadImage(player_runningback_image[i]);
 	}
 
 	for (int i = 0; i <= 7; i++)
 	{
-		player1.image_jumping[i] = iLoadImage(player_jumping_image[i]);
+		ground_player.image_jumping[i] = iLoadImage(player_jumping_image[i]);
 	}
 
 	for (int i = 0; i <= 7; i++)
 	{
-		player1.image_jumpingback[i] = iLoadImage(player_jumpingback_image[i]);
+		ground_player.image_jumpingback[i] = iLoadImage(player_jumpingback_image[i]);
 	}
 
 	/*Bullet.*/
@@ -76,16 +156,14 @@ void loadImage()
 
 	/*Enemy images.*/
 
-	enemy_image = iLoadImage("level_one\\enemy\\WALK_002.png");
-
 	for (int i = 0; i <= 8; i++)
 	{
-		enemy1.image[i] = iLoadImage(enemy1_image_location[i]);
+		enemy_one1.image[i] = iLoadImage(enemy1_image_location[i]);
 	}
 
 	for (int i = 0; i <= 8; i++)
 	{
-		enemy3.image[i] = iLoadImage(enemy3_image_location[i]);
+		enemy_one3.image[i] = iLoadImage(enemy3_image_location[i]);
 	}
 
 	/*__________________________________________________________Level Two._____________________________________________________________*/
@@ -103,9 +181,9 @@ void loadImage()
 
 	/*Characters for level two.*/
 
-	for (int i = 0; i <= 5; i++)
+	for (int i = 0; i <= 7; i++)
 	{
-		player2.image_plane[i] = iLoadImage(player_plane_image[i]);
+		flying_player.image_plane[i] = iLoadImage(player_plane_image[i]);
 	}
 
 	enemy_image_level2 = iLoadImage("level_two\\enemy\\enemy_000.png");

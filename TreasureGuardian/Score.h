@@ -84,7 +84,7 @@ void activateTextBox(int mx, int my)
 		if (mx >= 525 && mx <= 995 && my >= 290 && my <= 348)
 		{
 			field_active = true;
-			cout << "Text box activated." << endl;
+			//cout << "Text box activated." << endl;
 		}
 	}
 }
@@ -177,6 +177,56 @@ void saveScore()
 	}
 
 	fclose(fp);
+}
+
+/*___________________________________________________Showing score with custom font.______________________________________________________*/
+
+//This function shows a number with custom font.
+void showNumber(int x, int y, int size, int number)
+{
+	digit_x = x + 4 * size;
+	digit_y = y;
+
+	for (int i = 0; i < 5; i++)
+	{
+		if (number > 0)
+		{
+			digit[i] = number % 10;
+			number = number / 10;
+		}
+		else
+		{
+			digit[i] = 0;
+		}
+	}
+
+	for (int i = 0; i < 5; i++)
+	{
+		iShowImage(digit_x - i * size, digit_y, size, 1.4*size, digit_image[digit[i]]);
+	}
+}
+
+//For spinnig the coin.
+void moveCoin()
+{
+	static int choose_call = 0;
+
+	if (choose_call % 4 == 0)
+	{
+		coin_index++;
+
+		if (coin_index > 3)
+		{
+			coin_index = 0;
+		}
+	}
+
+	choose_call++;
+
+	if (choose_call >= 20)
+	{
+		choose_call = 0;
+	}
 }
 
 #endif // !SCORE_H_INCLUDED

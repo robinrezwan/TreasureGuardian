@@ -62,6 +62,11 @@ void showMenu()
 	iShowImage(0, 0, SCREEN_WIDTH, SCREEN_HIGHT, menu_image[menu_option]); /*Shows all the menu pages from an arry of images.
 	The image index changes due to calling int selectOption() from void iMouse().*/
 
+	if (menu_option == 0 && menu_highlight <= 5 && menu_highlight >= 0)
+	{
+		iShowImage(0, 0, SCREEN_WIDTH, SCREEN_HIGHT, highlight_image[menu_highlight]);
+	}
+
 	if (menu_option == 2) //If the high score page is openned.
 	{
 		showHighScores(); //Showing the high score list.

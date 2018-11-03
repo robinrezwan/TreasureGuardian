@@ -8,11 +8,12 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Character.h"
-#include "LifeGem.h"
+#include "Objects.h"
 #include "Collision.h"
 #include "GameOver.h"
 #include "Score.h"
 #include "Sound.h"
+#include "IntroLevels.h"
 #include "LevelOne.h"
 #include "LevelTwo.h"
 
@@ -30,55 +31,69 @@ void iDraw()
 		showMenu(); //This function runs all the codes for menu.
 	}
 
-	/*________________________________________________Level one codes runs from here.__________________________________________________*/
+	/*_____________________________________________Intro level one codes run from here.________________________________________________*/
+
+	else if (intro_level == 1)
+	{
+		introLevelOne(); //This function runs all the codes for intro level one.
+	}
+
+	/*______________________________________________________Showing map one.__________________________________________________________*/
+
+	else if (show_map == 1)
+	{
+		iShowImage(0, 0, SCREEN_WIDTH, SCREEN_HIGHT, map_screen[0]);
+	}
+
+	/*________________________________________________Level one codes run from here.___________________________________________________*/
 
 	else if (level == 1)
 	{
 		levelOne(); //This function runs all the codes for level one.
 	}
 
-	/*_______________________________________________Level two codes runs from here.___________________________________________________*/
+	/*____________________________________________________Showing gift screen.________________________________________________________*/
+
+	else if (show_gift == 1)
+	{
+		iShowImage(0, 0, SCREEN_WIDTH, SCREEN_HIGHT, gift_screen);
+
+		if (!gift_taken)
+		{
+			iShowImage(1240, 30, 240, 100, gift_plane[0]);
+			showIntroPlayer();
+		}
+		else
+		{
+			iShowImage(0, 0, SCREEN_WIDTH, SCREEN_HIGHT, invite);
+			iShowImage(1200, 15, 200, 178, gift_plane[1]);
+		}
+	}
+
+	/*_____________________________________________Intro level two codes run from here._______________________________________________*/
+
+	else if (intro_level == 2)
+	{
+		introLevelTwo(); //This function runs all the codes for intro level two.
+	}
+
+	/*______________________________________________________Showing map two.__________________________________________________________*/
+
+	else if (show_map == 2)
+	{
+		iShowImage(0, 0, SCREEN_WIDTH, SCREEN_HIGHT, map_screen[1]);
+	}
+
+	/*________________________________________________Level two codes run from here.__________________________________________________*/
 
 	else if (level == 2)
 	{
 		levelTwo(); //This function runs all the codes for level two.
 	}
 
-	/*_________________________________________________Game over codes start from here.________________________________________________*/
+	/*________________________________________________Game over codes start from here.________________________________________________*/
 
-	if (player1.life <= 0 && menu_option != 0) //Checking if the game is over.
-	{
-		game_over = true;
-		level = 0;
-	}
-
-	if (game_over)
-	{
-		//cout << "Game over codes running!" << endl;
-
-		level = 0;
-		player1.life = 0;
-		high_score.score = player1.score;
-
-		checkRank(); //Checks the players rank according to his score.
-
-		//cout << "Player rank: " << player_rank << endl;
-
-		iShowImage(0, 0, SCREEN_WIDTH, SCREEN_HIGHT, game_over_image[game_over_index]); //Shows the game over screen.
-
-		//Shows the score on the game over screen.
-		char score_string[20];
-		sprintf(score_string, "%d", player1.score);
-		iSetColor(0, 0, 0);
-		iText(810, 408, score_string, GLUT_BITMAP_TIMES_ROMAN_24);
-
-		if (game_over_index != 0) //If the player has acquired a position in the high score list.
-		{
-			iShowImage(0, 0, 0, 0, star_image[star_index]); //Shows star badge for the palyer.
-
-			setPlayerName(); //Shows the player's name in the text box while it's being taken input.
-		}
-	}
+	gameOver(); //This function runs all the codes regarding game over.
 }
 
 /*_________________________________________________________Mouse Controls._____________________________________________________________*/
@@ -90,28 +105,89 @@ void iMouseMove(int mx, int my)
 
 void iPassiveMouse(int mx, int my)
 {
+	//cout << mx << ", " << my << endl;
+	if (menu_option == 0)
+	{
+		if (mx >= 537 && mx <= 952 && my >= 490 && my <= 547)
+		{
+			menu_highlight = 0;
+		}
+		else if (mx >= 537 && mx <= 952 && my >= 429 && my <= 486)
+		{
+			menu_highlight = 1;
+		}
+		else if (mx >= 537 && mx <= 952 && my >= 368 && my <= 426)
+		{
+			menu_highlight = 2;
+		}
+		else if (mx >= 537 && mx <= 952 && my >= 305 && my <= 364)
+		{
+			menu_highlight = 3;
+		}
+		else if (mx >= 537 && mx <= 952 && my >= 244 && my <= 302)
+		{
+			menu_highlight = 4;
+		}
+		else if (mx >= 537 && mx <= 952 && my >= 181 && my <= 240)
+		{
+			menu_highlight = 5;
+		}
+		else
+		{
+			menu_highlight = 6;
+		}
+	}
 
+	if (intro_level == 2)
+	{
+		mouse_x = mx - 35;
+		mouse_y = my;
+	}
 }
 
 void iMouse(int button, int state, int mx, int my)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
-		//printf("%d, %d\n", mx, my);
+		cout << mx << ", " << my << endl;
 
 		if (menu_option == 0 || (menu_option >= 2 && menu_option <= 5)) //If the game is on the menu page.
 		{
-			menu_x = mx;
-			menu_y = my;
-			
-			menu_option = selectMenuOption(menu_option, menu_x, menu_y);
+			menu_option = selectMenuOption(menu_option, mx, my);
 		}
 
 		if (menu_option == 1)
 		{
-			level = 1;
-			menu_option = 6; //Because the game is not in the menu state anymore.
+			intro_level = 1;
+			menu_option = 6; //To stop running menu codes.
 			controlSound(true, 1); //For sound.
+		}
+
+		else if (show_map == 1)
+		{
+			if (mx >= 700 && mx <= 755 && my >= 473 && my <= 533)
+			{
+				level = 1; //For starting level one.
+				show_map = 0; //To stop running show_map codes.
+			}
+		}
+
+		else if (show_gift == 1 && gift_taken)
+		{
+			if (mx >= 630 && mx <= 882 && my >= 468 && my <= 645)
+			{
+				intro_level = 2; //For starting intro level two.
+				show_gift = 0; //To stop running show_gift codes.
+			}
+		}
+
+		else if (show_map == 2)
+		{
+			if (mx >= 925 && mx <= 980 && my >= 495 && my <= 555)
+			{
+				level = 2; //For starting level two.
+				show_map = 0; //To stop running show_map codes.
+			}
 		}
 
 		if (game_over_index == 1 || game_over_index == 2) //If high score is achieved.
@@ -143,8 +219,8 @@ void iKeyboard(unsigned char key)
 			saveScore();
 			memset(high_score.name, NULL, sizeof(high_score.name)); //Clearing the name after saving the high score.
 			name_index = 0;
-			player1.life = 100;
-			player1.score = 0;
+			ground_player.health = 100;
+			ground_player.score = 0;
 			game_over = false;
 			menu_option = 0;
 		}
@@ -155,7 +231,27 @@ void iKeyboard(unsigned char key)
 		fire = true;
 	}
 
-	if (key == 'a')
+	if (key == 'g' || key == 'G')
+	{
+		if (intro_level == 1)
+		{
+			if (intro_player.x + intro_player.extended_x + 35 >= stair_top.x && intro_player.x + intro_player.extended_x + intro_player.dimension_x - 35 <= stair_top.x + stair_top.dimension_x && intro_player.y + intro_player.extended_y + jumping_height >= stair_top.y + stair_top.dimension_y)
+			{
+				show_map = 1; //For showing map after intro level one.
+				intro_level = 0; //To stop running intro level one codes.
+			}
+		}
+
+		else if (show_gift == 1)
+		{
+			if (intro_player.x + intro_player.extended_x + 35 >= 1320 && intro_player.x + intro_player.extended_x + intro_player.dimension_x - 35 <= 1480)
+			{
+				gift_taken = true;
+			}
+		}
+	}
+
+	if (key == 'm' || key == 'M')
 	{
 		if (play_sound == true)
 		{
@@ -169,30 +265,85 @@ void iKeyboard(unsigned char key)
 		}
 	}
 
-	if (key == 'o')
+	if (key == 's' || key == 'S')
 	{
-		/*level = 0;
-		player1.life = 0;
-		player1.score = 2260;
-		high_score.score = player1.score;*/
+		if ((level == 1 || level == 2) && shield_count > 0)
+		{
+			if (!active_shield)
+			{
+				active_shield = true;
+			}
+			else
+			{
+				active_shield = false;
+			}
+		}
+	}
+
+	if (key == '1')
+	{
+		show_map = 1;
+		intro_level = 0;
+		level = 0;
+		show_gift = 0;
+		menu_option = 6;
+		game_over = false;
 	}
 
 	if (key == '2')
 	{
+		level = 1;
+		intro_level = 0;
+		show_map = 0;
+		show_gift = 0;
+		menu_option = 6;
+		game_over = false;
+	}
+
+	if (key == '3')
+	{
+		show_gift = 1;
+		intro_level = 0;
+		level = 0;
+		show_map = 0;
+		menu_option = 6;
+		game_over = false;
+
+		intro_player.x = 160;
+		intro_player.y = 30;
+	}
+
+	if (key == '4')
+	{
+		intro_level = 2;
+		level = 0;
+		show_map = 0;
+		show_gift = 0;
+		menu_option = 6;
+		game_over = false;
+	}
+
+	if (key == '5')
+	{
+		show_map = 2;
+		intro_level = 0;
+		level = 0;
+		show_gift = 0;
+		menu_option = 6;
+		game_over = false;
+	}
+
+	if (key == '6')
+	{
 		level = 2;
-		player2.score = player1.score;
-		player2.life = player1.life;
-		//menu_option = 6;
-	}
+		show_map = 0;
+		intro_level = 0;
+		show_gift = 0;
+		menu_option = 6;
+		game_over = false;
 
-	if (key == 'p')
-	{
-		iPauseTimer(0);
-	}
-
-	if (key == 'r')
-	{
-		iResumeTimer(0);
+		flying_player.x = 160;
+		flying_player.y = 520;
 	}
 }
 
@@ -201,85 +352,196 @@ void iSpecialKeyboard(unsigned char key)
 
 	if (key == GLUT_KEY_LEFT)
 	{
-		/*Moving character and background for level one.*/
-
-		if (jumping_height == 0)
+		if (intro_level == 1 || show_gift == 1) //Moving character for intro levels.
 		{
-			player1.condition = 3;
+			if (jumping_height == 0)
+			{
+				intro_player.condition = 3;
+			}
+
+			if (intro_player.x > -34)
+			{
+				intro_player.x -= 4;
+			}
+
+			changeRunningBackImage();
 		}
 
-		if (player1.x > -34)
+		if (level == 1) //Moving character and background for level one.
 		{
-			player1.x -= 3;
+			if (jumping_height == 0)
+			{
+				ground_player.condition = 3;
+			}
+
+			if (ground_player.x > -34)
+			{
+				ground_player.x -= 3;
+			}
+
+			player_distance--;
+
+			moveBackgroundBack();
+			changeRunningBackImage();
 		}
 
-		moveBackgroundBack();
-		changeRunningBackImage();
-
-		/*Moves player for level two.*/
-
-		player2.x -= 10;
+		if (level == 2 && flying_player.x + flying_player.extended_x > 15) //Moves player for level two.
+		{
+			/*for (int i = 0; i < 15; i++)
+			{
+				flying_player.x -= 1;
+			}*/
+			plane_direction = 1;
+		}
 	}
 
 	if (key == GLUT_KEY_RIGHT)
 	{
-		/*Moving character and background for level one.*/
-
-		if (jumping_height == 0)
+		if (intro_level == 1 || show_gift == 1) //Moving character for intro levels.
 		{
-			player1.condition = 2;
+			if (jumping_height == 0)
+			{
+				intro_player.condition = 2;
+			}
+
+			if (intro_player.x < 1395)
+			{
+				intro_player.x += 4;
+			}
+
+			changeRunningImage();
 		}
 
-		if (player1.x < 1395)
+		if (level == 1) //Moving character and background for level one.
 		{
-			player1.x += 3;
+			if (jumping_height == 0)
+			{
+				ground_player.condition = 2;
+			}
+
+			if (ground_player.x < 1485)
+			{
+				if (ground_player.x < 1100)
+				{
+					ground_player.x += 3;
+				}
+				else
+				{
+					ground_player.x += 8;
+				}
+
+				player_distance++;
+				cout << player_distance << endl;
+
+				if (player_distance == 1000 && !magic_stone.taken)
+				{
+					magic_stone.state = true;
+				}
+				else if (player_distance == 1520 && !magic_chest.taken)
+				{
+					magic_chest.state = true;
+				}
+				else if (player_distance == 1950 && !magic_key.taken)
+				{
+					magic_key.state = true;
+				}
+			}
+			else
+			{
+				ground_player.x = -125;
+			}
+
+			moveBackground();
+			changeRunningImage();
 		}
 
-		moveBackground();
-		changeRunningImage();
+		if (level == 2 && flying_player.x + flying_player.extended_x + flying_player.dimension_x < 1505) //Moves player for level two.
+		{
+			/*for (int i = 0; i < 15; i++)
+			{
+				flying_player.x += 1;
+			}*/
 
-		/*Moves player for level two.*/
-
-		player2.x += 10;
+			plane_direction = 2;
+		}
 	}
 
 	if (key == GLUT_KEY_UP)
 	{
-		/*Moving character for level one.*/
-
-		if (player1.condition <= 3)
+		if (intro_level == 1 || show_gift == 1) //Moving character for intro levels.
 		{
-			player1.condition += 4;
+			if (intro_player.condition <= 3)
+			{
+				intro_player.condition += 4;
+			}
+
+			if (!jump)
+			{
+				jump = true;
+				jumping = true;
+			}
 		}
 
-		if (!jump)
+		if (level == 1) //Moving character for level one.
 		{
-			jump = true;
-			jumping = true;
+			if (ground_player.condition <= 3)
+			{
+				ground_player.condition += 4;
+			}
+
+			if (!jump)
+			{
+				jump = true;
+				jumping = true;
+			}
 		}
 
-		/*Moves player for level two.*/
+		if (level == 2 && flying_player.y + flying_player.extended_y + flying_player.dimension_y < 777) //Moves player for level two.
+		{
+			/*for (int i = 0; i < 15; i++)
+			{
+				flying_player.y += 1;
+			}*/
 
-		player2.y += 15;
+			plane_direction = 3;
+		}
 	}
 
 	if (key == GLUT_KEY_DOWN)
 	{
-		/*Moves player for level two.*/
+		if (level == 2 && flying_player.y + flying_player.extended_y > 15) //Moves player for level two.
+		{
+			/*for (int i = 0; i < 5; i++)
+			{
+				flying_player.y -= 1;
+			}*/
 
-		player2.y -= 15;
+			plane_direction = 4;
+		}
 	}
 
 	if (key == GLUT_KEY_HOME)
 	{
 		menu_option = 0;
 		level = 0;
+		intro_level = 0;
+		show_map = 0;
+		show_gift = 0;
+		ground_player.score = 0;
+		ground_player.health = 100;
+		player_distance = 0;
+
+		intro_player.x = 160;
+		intro_player.y = 30;
+		ground_player.x = 160;
+		flying_player.x = 160;
+		flying_player.y = 520;
 
 		if (game_over) //This block is being used temporarily.
 		{
 			game_over = false;
-			player1.life = 100;
-			player1.score = 0;
+			ground_player.health = 100;
+			ground_player.score = 0;
 		}
 	}
 
@@ -289,23 +551,129 @@ void iSpecialKeyboard(unsigned char key)
 	}
 }
 
+/*________________________________________________________Timer functions._____________________________________________________________*/
+
+void tenMiliSec()
+{
+	if (intro_level == 1)
+	{
+		moveStairs();
+	}
+
+	if (level == 1)
+	{
+		changeEnemyPosition();
+		changeBombPosition();
+	}
+
+	if (level == 1 || level == 2 || explosion)
+	{
+		changeFire();
+	}
+
+	if (level == 2)
+	{
+		changeBackgroundTwo3();
+		changeEnemyPosition2();
+
+		if (plane_direction > 0)
+		{
+			movePlane();
+		}
+	}
+}
+
+void twentyMiliSec()
+{
+	if (intro_level == 1 || level == 1 || show_gift == 1)
+	{
+		Jump();
+	}
+
+	if (level == 2)
+	{
+		changeBackgroundTwo2();
+	}
+}
+
+void fortyMiliSec()
+{
+	if (level == 1 || level == 2)
+	{
+		moveCoin();
+	}
+
+	if (level == 2)
+	{
+		changeBackgroundTwo1();
+	}
+}
+
+void hundredMiliSec()
+{
+	if (intro_level == 1 && goblin.state)
+	{
+		changeGoblinImage();
+
+		if (!cannon_fire)
+		{
+			cannonFire();
+		}
+	}
+	if (intro_level == 1 || level == 1 || show_gift == 1)
+	{
+		changeIdleImage();
+	}
+
+	if (level == 1 || level == 2)
+	{
+		shieldPositionChange();
+	}
+
+	if (intro_level == 2)
+	{
+		showApple();
+	}
+
+	if (level == 2)
+	{
+		changePlaneImage();
+	}
+}
+
+void oneSec()
+{
+	if (level == 1 || level == 2)
+	{
+		//bombRandom();
+		positionHealthGem2();
+	}
+}
+
+void fourSec()
+{
+	if (level == 1 || level == 2)
+	{
+		positionHealthGem();
+	}
+
+	if (level == 2)
+	{
+		enemyFire();
+	}
+}
+
 /*_________________________________________________________Main function.______________________________________________________________*/
 /***************************************************************************************************************************************/
 
 int main()
 {
-	background_two1_timer = iSetTimer(40, changeBackgroundTwo1);
-	background_two2_timer = iSetTimer(20, changeBackgroundTwo2);
-	background_two3_timer = iSetTimer(10, changeBackgroundTwo3);
-
-	iSetTimer(100, changeIdleImage);
-	iSetTimer(20, Jump);
-
-	iSetTimer(5000, positionLifeGem);
-
-	iSetTimer(10, enemyPosition);
-
-	iSetTimer(100, changePlaneImage);
+	iSetTimer(10, tenMiliSec);
+	iSetTimer(20, twentyMiliSec);
+	iSetTimer(40, fortyMiliSec);
+	iSetTimer(100, hundredMiliSec);
+	iSetTimer(1000, oneSec);
+	iSetTimer(4000, fourSec);
 
 	controlSound(play_sound, 0);
 

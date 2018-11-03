@@ -68,9 +68,10 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="IntroLevels.h" />
     <ClInclude Include="LevelOne.h" />
     <ClInclude Include="LevelTwo.h" />
-    <ClInclude Include="LifeGem.h" />
+    <ClInclude Include="Objects.h" />
     <ClInclude Include="LoadImage.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />

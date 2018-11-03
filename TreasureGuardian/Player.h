@@ -6,21 +6,21 @@
 struct Player
 {
 	int x, y;
-	int dimension_x, dimension_y;
+	int dimension_x, dimension_y; //Character's actual dimension, not the image's dimension.
 	int extended_x, extended_y; //As the images have some blank spaces around the character.
 	int condition; //This number will represent if the player standing, walking or jumping. 
 	int condition_changer;
-	bool dead;
+	bool visible;
 	int score;
-	int life;
+	int health;
 	int image_idle[20], image_idleback[20], image_running[20], image_runningback[20], image_jumping[20], image_jumpingback[20], image_plane[20];
 
-	Player()
-	{
-		;
-	}
+	//Player()
+	//{
+	//	;
+	//}
 
-	Player(int _x, int _y, int _dimension_x, int _dimension_y, int _extended_x, int _extended_y, int _condition, int _condition_changer, bool _dead, int _score, int _life)
+	Player(int _x, int _y, int _dimension_x, int _dimension_y, int _extended_x, int _extended_y, int _condition, int _condition_changer, bool _visible, int _score, int _health)
 	{
 		//This constructor is for the player of level one.
 		x = _x;
@@ -31,12 +31,12 @@ struct Player
 		extended_y = _extended_y;
 		condition = _condition;
 		condition_changer = _condition_changer;
-		dead = _dead;
+		visible = _visible;
 		score = _score;
-		life = _life;
+		health = _health;
 	}
 
-	Player(int _x, int _y, int _dimension_x, int _dimension_y, int _extended_x, int _extended_y, bool _dead, int _score, int _life)
+	Player(int _x, int _y, int _dimension_x, int _dimension_y, int _extended_x, int _extended_y, bool _visible)
 	{	
 		//This constructor is for the player of level two.
 		x = _x;
@@ -45,12 +45,19 @@ struct Player
 		dimension_y = _dimension_y;
 		extended_x = _extended_x;
 		extended_y = _extended_y;
-		dead = _dead;
-		score = _score;
-		life = _life;
+		visible = _visible;
 	}
-} player1(460, 68, 90, 140, 35, 8, 0, 0, false, 0, 100), player2(460, 600, 130, 80, 140, 90, false, 0, 100);
 
-//'player1' is for level one and 'player2' is for level two.
+	Player(int _x, int _y, int _dimension_x, int _dimension_y, int _extended_x, int _extended_y)
+	{
+		//This constructor is for the player of intro levels.
+		x = _x;
+		y = _y;
+		dimension_x = _dimension_x;
+		dimension_y = _dimension_y;
+		extended_x = _extended_x;
+		extended_y = _extended_y;
+	}
+} intro_player(160, 30, 90, 140, 35, 8), ground_player(160, 68, 90, 140, 35, 8, 0, 0, true, 0, 100), flying_player(160, 520, 152, 122, 24, 25, true);
 
 #endif // !PLAYER_H_INCLUDED

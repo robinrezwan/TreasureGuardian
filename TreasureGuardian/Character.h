@@ -99,6 +99,17 @@ void Jump()
 			{
 				jump = false; //Player has come down to the ground.
 				jumping_height = 0;
+
+				if (ground_player.condition == 4 || ground_player.condition == 6)
+				{
+					ground_player.condition = 0;
+					intro_player.condition = 0;
+				}
+				else if (ground_player.condition == 5 || ground_player.condition == 7)
+				{
+					ground_player.condition = 1;
+					intro_player.condition = 1;
+				}
 			}
 
 			if (player_jumping_index > 0) //When coming down.
@@ -111,66 +122,66 @@ void Jump()
 
 /*________________________________________________For showing character from iDraw().__________________________________________________*/
 
-void showPlayer1()
+void showPlayerOne()
 {
-	if (player1.condition == 0) //If standing.
+	if (ground_player.condition == 0) //If standing.
 	{
-		iShowImage(player1.x, player1.y, 160, 160, player1.image_idle[player_idle_index]); /*Showing idle images from an array.
+		iShowImage(ground_player.x, ground_player.y, 160, 160, ground_player.image_idle[player_idle_index]); /*Showing idle images from an array.
 		The image index is being changed by calling void changeIdleImage() from a timer when no key is pressed.*/
 	}
 
-	else if (player1.condition == 1) //If standing backward.
+	else if (ground_player.condition == 1) //If standing backward.
 	{
-		iShowImage(player1.x, player1.y, 160, 160, player1.image_idleback[player_idleback_index]); /*Showing backward idle images from an array.
+		iShowImage(ground_player.x, ground_player.y, 160, 160, ground_player.image_idleback[player_idleback_index]); /*Showing backward idle images from an array.
 		The image index is being changed by calling void changeIdleImage() from a timer when no key is pressed.*/
 	}
 
-	else if (player1.condition == 2) //If running.
+	else if (ground_player.condition == 2) //If running.
 	{
-		iShowImage(player1.x, player1.y, 160, 160, player1.image_running[player_running_index]); /*Showing running images from an array.
+		iShowImage(ground_player.x, ground_player.y, 160, 160, ground_player.image_running[player_running_index]); /*Showing running images from an array.
 		The image index is being changed by calling void changeRunningImage() from void iSpecialKeyboard() when no right key is pressed.*/
 
-		player1.condition_changer++;
-		if (player1.condition_changer >= 200)
+		ground_player.condition_changer++;
+		if (ground_player.condition_changer >= 200)
 		{
-			player1.condition_changer = 0;
-			player1.condition = 0;
+			ground_player.condition_changer = 0;
+			ground_player.condition = 0;
 		}
 	}
 
-	else if (player1.condition == 3) //If running backward.
+	else if (ground_player.condition == 3) //If running backward.
 	{
-		iShowImage(player1.x, player1.y, 160, 160, player1.image_runningback[player_runningback_index]); /*Showing running backward images from an array.
+		iShowImage(ground_player.x, ground_player.y, 160, 160, ground_player.image_runningback[player_runningback_index]); /*Showing running backward images from an array.
 		The image index is being changed by calling void changeRunningBackImage() from void iSpecialKeyboard() when left key is pressed.*/
 
-		player1.condition_changer++;
-		if (player1.condition_changer >= 200)
+		ground_player.condition_changer++;
+		if (ground_player.condition_changer >= 200)
 		{
-			player1.condition_changer = 0;
-			player1.condition = 1;
+			ground_player.condition_changer = 0;
+			ground_player.condition = 1;
 		}
 	}
 
-	else if (player1.condition == 4 || player1.condition == 6) //If jumping.
+	else if (ground_player.condition == 4 || ground_player.condition == 6) //If jumping.
 	{
-		iShowImage(player1.x, player1.y + jumping_height, 160, 160, player1.image_jumping[player_jumping_index]); /*Showing jumping images from an array.
+		iShowImage(ground_player.x, ground_player.y + jumping_height, 160, 160, ground_player.image_jumping[player_jumping_index]); /*Showing jumping images from an array.
 		The image index is being changed by calling void Jump() from void iSpecialKeyboard() when up key is pressed.*/
-
-	/*if (jumping_height <= 0)
-	{
-		player1.condition = 0;
-	}*/
 	}
 
-	else if (player1.condition == 5 || player1.condition == 7) //If jumping back.
+	else if (ground_player.condition == 5 || ground_player.condition == 7) //If jumping back.
 	{
-		iShowImage(player1.x, player1.y + jumping_height, 160, 160, player1.image_jumpingback[player_jumping_index]); /*Showing jumping back images from an array.
+		iShowImage(ground_player.x, ground_player.y + jumping_height, 160, 160, ground_player.image_jumpingback[player_jumping_index]); /*Showing jumping back images from an array.
 		The image index is being changed by calling void Jump() from void iSpecialKeyboard() when up key is pressed.*/
+	}
 
-	/*if (jumping_height <= 0)
+	//If the player is on the screen.
+	if (ground_player.x >= 40 && ground_player.x <= 1360)
 	{
-		player1.condition = 1;
-	}*/
+		ground_player.visible = true;
+	}
+	else
+	{
+		ground_player.visible = false;
 	}
 }
 
@@ -182,9 +193,51 @@ void changePlaneImage()
 {
 	player_plane_index++;
 
-	if (player_plane_index > 5)
+	if (player_plane_index > 7)
 	{
 		player_plane_index = 0;
+	}
+}
+
+void movePlane()
+{
+	static int call = 0;
+
+	if (plane_direction == 1)
+	{
+		if (flying_player.x + flying_player.extended_x >= 3)
+		{
+			flying_player.x -= 4;
+		}
+	}
+	if (plane_direction == 2)
+	{
+		if (flying_player.x + flying_player.extended_x + flying_player.dimension_x <= 1517)
+		{
+			flying_player.x += 4;
+		}
+	}
+	if (plane_direction == 3)
+	{
+		if (flying_player.y + flying_player.extended_y + flying_player.dimension_y <= 789)
+		{
+			flying_player.y += 4;
+		}
+	}
+	if (plane_direction == 4)
+	{
+		if (flying_player.y + flying_player.extended_y >= 3)
+		{
+			flying_player.y -= 4;
+		}
+	}
+
+	call++;
+
+	if (call >= 75)
+	{
+		plane_direction = 0;
+		call = 0;
 	}
 }
 

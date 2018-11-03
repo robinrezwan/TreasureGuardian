@@ -42,11 +42,30 @@ void changeBackgroundOne3()
 			background_one3_x[i] = background_one3_x[(i + 1) % 2] + 2510;
 		}
 
-		life_gem1.x -= 1; //To make the life potion move with the background.
-		enemy1.x -= 1;
-		enemy2.x -= 1;
-		enemy3.x -= 1;
-		enemy4.x -= 1;
+		//To make the other objects move with the background.
+		health_gem1.x -= 1;
+		health_gem2.x -= 1;
+		shield.x -= 1;
+
+		enemy_one2.x -= 1;
+		enemy_one3.x -= 1;
+		/*enemy1.x -= 1;
+		enemy4.x -= 1;*/
+
+		if (magic_stone.state)
+		{
+			magic_stone.x -= 1;
+		}
+		if (magic_chest.state)
+		{
+			magic_chest.x -= 1;
+		}
+		if (magic_key.state)
+		{
+			magic_key.x -= 1;
+		}
+
+		bomb_x--;
 	}
 }
 
@@ -57,8 +76,8 @@ void changeBackgroundOneBack1()
 {
 	for (int i = 0; i < 2; i++)
 	{
-		background_one1_x[i] += 1; //left slide
-		if (background_one1_x[i] > 2512) //left slide out of frame
+		background_one1_x[i] += 1; //right slide
+		if (background_one1_x[i] > 2512) //right slide out of frame
 			background_one1_x[i] = background_one1_x[(i + 1) % 2] - 2511;
 	}
 }
@@ -68,8 +87,8 @@ void changeBackgroundOneBack2()
 {
 	for (int i = 0; i < 2; i++)
 	{
-		background_one2_x[i] += 1; //left slide
-		if (background_one2_x[i] > 2512) //left slide out of frame
+		background_one2_x[i] += 1; //right slide
+		if (background_one2_x[i] > 2512) //right slide out of frame
 			background_one2_x[i] = background_one2_x[(i + 1) % 2] - 2510;
 	}
 }
@@ -79,17 +98,36 @@ void changeBackgroundOneBack3()
 {
 	for (int i = 0; i < 2; i++)
 	{
-		background_one3_x[i] += 2; //left slide
-		if (background_one3_x[i] > 2512) //left slide out of frame
+		background_one3_x[i] += 2; //right slide
+		if (background_one3_x[i] > 2512) //right slide out of frame
 		{
 			background_one3_x[i] = background_one3_x[(i + 1) % 2] - 2510;
 		}
 
-		life_gem1.x += 1; //To make the life potion move with the background.
-		enemy1.x += 1;
-		enemy2.x += 1;
-		enemy3.x += 1;
-		enemy4.x += 1;
+		//To make the other objects move with the background.
+		health_gem1.x += 1;
+		health_gem2.x += 1;
+		shield.x += 1;
+
+		enemy_one2.x += 1;
+		enemy_one3.x += 1;
+		/*enemy1.x += 1;
+		enemy4.x += 1;*/
+
+		if (magic_stone.state)
+		{
+			magic_stone.x += 1;
+		}
+		if (magic_chest.state)
+		{
+			magic_chest.x += 1;
+		}
+		if (magic_key.state)
+		{
+			magic_key.x += 1;
+		}
+
+		bomb_x++;
 	}
 }
 
@@ -133,7 +171,7 @@ void moveBackgroundBack()
 
 /*________________________________________________For showing background from iDraw()._________________________________________________*/
 
-void showBackground1()
+void showBackgroundOne()
 {
 	iShowImage(0, 0, 2512, SCREEN_HIGHT, background_one0); //Shows the most inner still background (the sky).
 	for (int i = 0; i < 2; i++)
@@ -186,7 +224,7 @@ void changeBackgroundTwo3()
 			background_two3_x[i] = background_two3_x[(i + 1) % 2] + 2510;
 		}
 
-		//life_gem1.x -= 1; //To make the life potion move with the background.
+		//health_gem1.x -= 1; //To make the health potion move with the background.
 	}
 }
 

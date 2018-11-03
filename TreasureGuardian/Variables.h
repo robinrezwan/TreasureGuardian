@@ -10,27 +10,126 @@
 
 int level = 0;
 
-char menu_image_location[][23] = { "menu\\menu.png", "blank", "menu\\high_scores.png", "menu\\instructions.png", "menu\\options.png", "menu\\about.png" };
+char menu_image_location[][23] = { "menu\\menu.png", "blank", "menu\\high_scores.png", "menu\\story.png", "menu\\controls.png", "menu\\about.png" };
 int menu_image[6];
 
-int menu_x, menu_y;
 int menu_option = 0;
+
+int menu_highlight = 6;
+char highlight_image_location[][14] = { "menu\\1.png", "menu\\2.png", "menu\\3.png", "menu\\4.png", "menu\\5.png", "menu\\6.png" };
+int highlight_image[7];
 
 /*Sound*/
 
 bool play_sound = true;
 
-/*Timer Inedex*/
+/*___________________________________________________Custom number font rendering._____________________________________________________*/
 
-int background_two1_timer, background_two2_timer, background_two3_timer;
+int digit_x, digit_y;
+int digit[6];
+int digit_image[11];
+char digit_image_location[11][23] = { "others\\numbers\\0.png", "others\\numbers\\1.png",
+"others\\numbers\\2.png", "others\\numbers\\3.png", "others\\numbers\\4.png",
+"others\\numbers\\5.png", "others\\numbers\\6.png", "others\\numbers\\7.png",
+"others\\numbers\\8.png", "others\\numbers\\9.png" };
 
-/*Collision*/
+/*_____________________________________________Score, health, shield and magic object bar._____________________________________________*/
 
-int life_gem_image1;
+int health_bar[12];
+char health_bar_image[12][33] = { "others\\icons\\health_bar000.png", "others\\icons\\health_bar001.png",
+"others\\icons\\health_bar002.png", "others\\icons\\health_bar003.png", "others\\icons\\health_bar004.png",
+"others\\icons\\health_bar005.png", "others\\icons\\health_bar006.png", "others\\icons\\health_bar007.png",
+"others\\icons\\health_bar008.png", "others\\icons\\health_bar009.png", "others\\icons\\health_bar010.png" };
+
+int magic_bar[5];
+
+int score_coin[5];
+int coin_index = 0;
+
+bool active_shield = false;
+int shield_count = 0;
+
+int shield_bar[12];
+char shield_bar_image[12][33] = { "others\\icons\\shield_bar000.png", "others\\icons\\shield_bar001.png",
+"others\\icons\\shield_bar002.png", "others\\icons\\shield_bar003.png", "others\\icons\\shield_bar004.png",
+"others\\icons\\shield_bar005.png", "others\\icons\\shield_bar006.png", "others\\icons\\shield_bar007.png",
+"others\\icons\\shield_bar008.png", "others\\icons\\shield_bar009.png", "others\\icons\\shield_bar010.png" };
+
+
+/*_____________________________________________________________Explosion.______________________________________________________________*/
+
+bool explosion = false;
+bool exploded1 = false;
+bool exploded2 = false;
+bool exploded3 = false;
+bool exploded4 = false;
+bool exploded5 = false;
+bool exploded6 = false;
+char fire_image_location[21][30]= { "others\\fire\\fire_001_01.png", "others\\fire\\fire_001_02.png",
+"others\\fire\\fire_001_03.png", "others\\fire\\fire_001_04.png", "others\\fire\\fire_001_05.png",
+"others\\fire\\fire_001_06.png", "others\\fire\\fire_001_07.png", "others\\fire\\fire_001_08.png",
+"others\\fire\\fire_001_09.png", "others\\fire\\fire_001_10.png", "others\\fire\\fire_001_11.png",
+"others\\fire\\fire_001_12.png", "others\\fire\\fire_001_13.png", "others\\fire\\fire_001_14.png",
+"others\\fire\\fire_001_15.png", "others\\fire\\fire_001_16.png", "others\\fire\\fire_001_17.png",
+"others\\fire\\fire_001_18.png", "others\\fire\\fire_001_19.png", "others\\fire\\fire_001_20.png" };
+int fire_image[21];
+int fire_index = 0;
+
+int explosion_x;
+int explosion_y;
+
+/*______________________________________________________________Screens._______________________________________________________________*/
+
+int show_map = 0;
+int map_screen[3];
+
+int show_gift = 0;
+int gift_screen;
+int gift_plane[3];
+bool gift_taken = false;
+int invite;
+
+/*__________________________________________________________Intro Level One____________________________________________________________*/
+
+int intro_level = 0;
+
+int intro_one_background;
+int stair;
+int stair_top_map;
+int map;
+int move_intro_player = 0;
+//bool falling_down = false;
+
+int cannon;
+int fireball;
+int fireball_x = 1420;
+bool cannon_fire = false;
+char goblin_image_location[][34] = { "intro_level_one\\goblin_000.png", "intro_level_one\\goblin_001.png", "intro_level_one\\goblin_002.png",
+"intro_level_one\\goblin_003.png", "intro_level_one\\goblin_004.png", "intro_level_one\\goblin_005.png", "intro_level_one\\goblin_006.png",
+"intro_level_one\\goblin_006.png", "intro_level_one\\goblin_007.png" };
+
+/*__________________________________________________________Intro Level Two____________________________________________________________*/
+
+int intro_two_background;
+int apple[3];
+int apple_index1, apple_index2, apple_index3, apple_index4, apple_index5, apple_index6, apple_index7, apple_index8, apple_index9, apple_index10, apple_index11;
+int show_apple;
+int apple_count;
+char apple_string[10];
+int ring;
+int mouse_x;
+int mouse_y;
+bool new_number = false;
 
 /*_____________________________________________________________Level One_______________________________________________________________*/
 
 int level_one;
+int player_distance = 0;
+
+int stone;
+int chest;
+int key;
+int magic_object_gained = 0;
 
 /*Background for level one.*/
 
@@ -102,8 +201,8 @@ int jumping_height = 0;
 bool fire = false;
 int bullet_image;
 int bullet_back_image;
-int bullet_x = player1.x + 110;
-int bullet_back_x = player1.x;
+int bullet_x = ground_player.x + 110;
+int bullet_back_x = ground_player.x;
 
 /*Enemy variables.*/
 
@@ -117,9 +216,11 @@ char enemy3_image_location[][39] = { "level_one\\enemy\\enemy_3\\WALK_000.png", 
 "level_one\\enemy\\enemy_3\\WALK_003.png", "level_one\\enemy\\enemy_3\\WALK_004.png", "level_one\\enemy\\enemy_3\\WALK_005.png", "level_one\\enemy\\enemy_3\\WALK_006.png",
 "level_one\\enemy\\enemy_3\\WALK_007.png", "level_one\\enemy\\enemy_3\\WALK_008.png" };
 
-/*Showing score on screen.*/
-
-char score_string[10];
+/*Enemy bomb variables.*/
+int bomb_image;
+int bomb_x = 1620;
+int bomb_random = 3;
+bool bomb_state = false;
 
 /*____________________________________________________________Level Two________________________________________________________________*/
 
@@ -138,10 +239,29 @@ int background_two3_x[] = { 0, 2512 }, background_two3_y[] = { 0, 0 };
 
 /*Characters for level two.*/
 
-char player_plane_image[6][33] = { "level_two\\player\\plane_000.png", "level_two\\player\\plane_001.png", "level_two\\player\\plane_002.png",
-"level_two\\player\\plane_003.png", "level_two\\player\\plane_004.png", "level_two\\player\\plane_005.png" };
+char player_plane_image[9][34] = { "level_two\\player\\plane_0000.png", "level_two\\player\\plane_0001.png", "level_two\\player\\plane_0002.png",
+"level_two\\player\\plane_0003.png", "level_two\\player\\plane_0004.png", "level_two\\player\\plane_0005.png", "level_two\\player\\plane_0006.png",
+"level_two\\player\\plane_0006.png", "level_two\\player\\plane_0007.png" };
 
 int player_plane_index = 0;
+int plane_direction = 0;
+
+/*Enemy image for level two.*/
+int enemy_image_level2;
+
+/*Anti-firing.*/
+
+int antifire;
+
+int antibullet1_x;
+int antibullet2_x;
+int antibullet3_x;
+
+bool enemybullethit1;
+bool enemybullethit2;
+bool enemybullethit3;
+
+bool crash1, crash2, crash3;
 
 /*_____________________________________________________Game Over and Score Saving._____________________________________________________*/
 
@@ -159,11 +279,5 @@ int name_index = 0;
 /*Firing*/
 
 int bullet_y;
-
-/*Enemy image for level two.*/
-
-int enemy_image_level2;
-int bomb_image;
-int bomb_x = 1550;
 
 #endif // !VARIABLES_H_INCLUDED

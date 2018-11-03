@@ -33,7 +33,7 @@ void checkRank()
 
 		while (fread(&high_score_temp, sizeof(struct HighScore), 1, fp) == 1)
 		{
-			if (player1.score > high_score_temp.score)
+			if (ground_player.score > high_score_temp.score)
 			{
 				player_rank = i;
 				break;
@@ -69,6 +69,46 @@ void checkRank()
 		}
 
 		fclose(fp);
+	}
+}
+
+/*________________________________________________Game over codes start from here.________________________________________________*/
+
+//This function checks if game is over, then runs all the codes regarding game over.
+void gameOver()
+{
+	if (ground_player.health <= 0 && menu_option != 0) //Checking if the game is over.
+	{
+		game_over = true;
+		level = 0;
+	}
+
+	if (game_over)
+	{
+		//cout << "Game over codes running!" << endl;
+
+		level = 0;
+		ground_player.health = 0;
+		high_score.score = ground_player.score;
+
+		checkRank(); //Checks the players rank according to his score.
+
+					 //cout << "Player rank: " << player_rank << endl;
+
+		iShowImage(0, 0, SCREEN_WIDTH, SCREEN_HIGHT, game_over_image[game_over_index]); //Shows the game over screen.
+
+		//Shows the score on the game over screen.
+		char score_string[20];
+		sprintf(score_string, "%d", ground_player.score);
+		iSetColor(255, 0, 0);
+		iText(810, 408, score_string, GLUT_BITMAP_TIMES_ROMAN_24);
+
+		if (game_over_index != 0) //If the player has acquired a position in the high score list.
+		{
+			iShowImage(0, 0, 0, 0, star_image[star_index]); //Shows star badge for the palyer.
+
+			setPlayerName(); //Shows the player's name in the text box while it's being taken input.
+		}
 	}
 }
 

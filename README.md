@@ -13,7 +13,7 @@ Department of Computer Science and Engineering
 **Project Information:**
 
 **Game Genre:** Action-adventure<br/>
-**Language:** C/C++, OpenGL (with help of iGraphics header file)<br/>
+**Language:** C/C++, OpenGL (with help of iGraphics wrapper)<br/>
 **IDE:** Visual Studio, CodeBlocks<br/>
 **Platform:** Windows
 

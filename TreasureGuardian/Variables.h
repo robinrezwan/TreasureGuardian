@@ -6,6 +6,10 @@
 #define SCREEN_WIDTH 1520
 #define SCREEN_HIGHT 792
 
+/*___________________________________________________________Timer index.______________________________________________________________*/
+
+int timer_ten_mili, timer_twenty_mili, timer_forty_mili, timer_hundred_mili, timer_one_sec, timer_four_sec;
+
 /*_______________________________________________________________Menu__________________________________________________________________*/
 
 int level = 0;
@@ -279,5 +283,10 @@ int name_index = 0;
 /*Firing*/
 
 int bullet_y;
+
+/*Game pause and resume.*/
+
+bool pause = false;
+int pause_screen;
 
 #endif // !VARIABLES_H_INCLUDED

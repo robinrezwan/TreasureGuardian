@@ -194,6 +194,35 @@ void iMouse(int button, int state, int mx, int my)
 		{
 			activateTextBox(mx, my); //This will activate the text box to enter high scorer's name.
 		}
+
+		if (game_over_index == 0 || game_over_index == 1 || game_over_index == 2) //If high score is achieved.
+		{
+			if (mx >= 547 && mx <= 968 && my >= 60 && my <= 116)
+			{
+				menu_option = 0; //To go to home.
+				level = 0;
+				intro_level = 0;
+				show_map = 0;
+				show_gift = 0;
+
+				ground_player.score = 0;
+				ground_player.health = 100;
+				player_distance = 0;
+
+				intro_player.x = 160;
+				intro_player.y = 30;
+
+				ground_player.x = 160;
+
+				flying_player.x = 160;
+				flying_player.y = 520;
+
+				game_over = false;
+				player_rank = 0;
+				game_over_index = 0;
+				memset(high_score.name, NULL, sizeof(high_score.name)); //Clearing the name.
+			}
+		}
 	}
 
 	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN)
@@ -231,7 +260,7 @@ void iKeyboard(unsigned char key)
 		fire = true;
 	}
 
-	if (key == 'g' || key == 'G')
+	if (key == 'e' || key == 'E')
 	{
 		if (intro_level == 1)
 		{
@@ -344,6 +373,32 @@ void iKeyboard(unsigned char key)
 
 		flying_player.x = 160;
 		flying_player.y = 520;
+	}
+
+	if (key == 'p' || key == 'P')
+	{
+		if (!pause)
+		{
+			pause = true;
+
+			iPauseTimer(timer_ten_mili);
+			iPauseTimer(timer_twenty_mili);
+			iPauseTimer(timer_forty_mili);
+			iPauseTimer(timer_hundred_mili);
+			iPauseTimer(timer_one_sec);
+			iPauseTimer(timer_four_sec);
+		}
+		else
+		{
+			pause = false;
+
+			iResumeTimer(timer_ten_mili);
+			iResumeTimer(timer_twenty_mili);
+			iResumeTimer(timer_forty_mili);
+			iResumeTimer(timer_hundred_mili);
+			iResumeTimer(timer_one_sec);
+			iResumeTimer(timer_four_sec);
+		}
 	}
 }
 
@@ -527,22 +582,23 @@ void iSpecialKeyboard(unsigned char key)
 		intro_level = 0;
 		show_map = 0;
 		show_gift = 0;
+
 		ground_player.score = 0;
 		ground_player.health = 100;
 		player_distance = 0;
 
 		intro_player.x = 160;
 		intro_player.y = 30;
+
 		ground_player.x = 160;
+
 		flying_player.x = 160;
 		flying_player.y = 520;
 
-		if (game_over) //This block is being used temporarily.
-		{
-			game_over = false;
-			ground_player.health = 100;
-			ground_player.score = 0;
-		}
+		game_over = false;
+		player_rank = 0;
+		game_over_index = 0;
+		memset(high_score.name, NULL, sizeof(high_score.name)); //Clearing the name.
 	}
 
 	if (key == GLUT_KEY_END)

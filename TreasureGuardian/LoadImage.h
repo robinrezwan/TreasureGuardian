@@ -194,6 +194,10 @@ void loadImage()
 	game_over_image[0] = iLoadImage("game_over\\game_over0.png");
 	game_over_image[1] = iLoadImage("game_over\\game_over1.png");
 	game_over_image[2] = iLoadImage("game_over\\game_over2.png");
+
+	/*Game pause and resume.*/
+
+	pause_screen = iLoadImage("others\\screens\\pause.png");
 }
 
 #endif // !LOADIMAGE_H_INCLUDED

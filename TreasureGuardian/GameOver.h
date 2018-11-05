@@ -19,10 +19,17 @@ void checkRank()
 
 	if (fp == NULL)
 	{
-		player_rank = 1;
-		game_over_index = 1;
-		star_index = 0;
-
+		if (ground_player.score > 0)
+		{
+			player_rank = 1;
+			game_over_index = 1;
+			star_index = 0;
+		}
+		else
+		{
+			player_rank = 0;
+			game_over_index = 0;
+		}
 		//cout << "File not found." << endl;
 	}
 

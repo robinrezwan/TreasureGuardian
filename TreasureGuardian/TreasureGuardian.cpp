@@ -94,6 +94,13 @@ void iDraw()
 	/*________________________________________________Game over codes start from here.________________________________________________*/
 
 	gameOver(); //This function runs all the codes regarding game over.
+
+	/*____________________________________________________Showing pause screen.______________________________________________________*/
+
+	if (pause)
+	{
+		iShowImage(0, 0, SCREEN_WIDTH, SCREEN_HIGHT, pause_screen);
+	}
 }
 
 /*_________________________________________________________Mouse Controls._____________________________________________________________*/
@@ -105,129 +112,135 @@ void iMouseMove(int mx, int my)
 
 void iPassiveMouse(int mx, int my)
 {
-	//cout << mx << ", " << my << endl;
-	if (menu_option == 0)
+	if (!pause)
 	{
-		if (mx >= 537 && mx <= 952 && my >= 490 && my <= 547)
+		//cout << mx << ", " << my << endl;
+		if (menu_option == 0)
 		{
-			menu_highlight = 0;
+			if (mx >= 537 && mx <= 952 && my >= 490 && my <= 547)
+			{
+				menu_highlight = 0;
+			}
+			else if (mx >= 537 && mx <= 952 && my >= 429 && my <= 486)
+			{
+				menu_highlight = 1;
+			}
+			else if (mx >= 537 && mx <= 952 && my >= 368 && my <= 426)
+			{
+				menu_highlight = 2;
+			}
+			else if (mx >= 537 && mx <= 952 && my >= 305 && my <= 364)
+			{
+				menu_highlight = 3;
+			}
+			else if (mx >= 537 && mx <= 952 && my >= 244 && my <= 302)
+			{
+				menu_highlight = 4;
+			}
+			else if (mx >= 537 && mx <= 952 && my >= 181 && my <= 240)
+			{
+				menu_highlight = 5;
+			}
+			else
+			{
+				menu_highlight = 6;
+			}
 		}
-		else if (mx >= 537 && mx <= 952 && my >= 429 && my <= 486)
-		{
-			menu_highlight = 1;
-		}
-		else if (mx >= 537 && mx <= 952 && my >= 368 && my <= 426)
-		{
-			menu_highlight = 2;
-		}
-		else if (mx >= 537 && mx <= 952 && my >= 305 && my <= 364)
-		{
-			menu_highlight = 3;
-		}
-		else if (mx >= 537 && mx <= 952 && my >= 244 && my <= 302)
-		{
-			menu_highlight = 4;
-		}
-		else if (mx >= 537 && mx <= 952 && my >= 181 && my <= 240)
-		{
-			menu_highlight = 5;
-		}
-		else
-		{
-			menu_highlight = 6;
-		}
-	}
 
-	if (intro_level == 2)
-	{
-		mouse_x = mx - 35;
-		mouse_y = my;
+		if (intro_level == 2)
+		{
+			mouse_x = mx - 35;
+			mouse_y = my;
+		}
 	}
 }
 
 void iMouse(int button, int state, int mx, int my)
 {
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+	if (!pause)
 	{
-		cout << mx << ", " << my << endl;
-
-		if (menu_option == 0 || (menu_option >= 2 && menu_option <= 5)) //If the game is on the menu page.
+		if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 		{
-			menu_option = selectMenuOption(menu_option, mx, my);
-		}
+			//cout << mx << ", " << my << endl;
 
-		if (menu_option == 1)
-		{
-			intro_level = 1;
-			menu_option = 6; //To stop running menu codes.
-			controlSound(true, 1); //For sound.
-		}
-
-		else if (show_map == 1)
-		{
-			if (mx >= 700 && mx <= 755 && my >= 473 && my <= 533)
+			if (menu_option == 0 || (menu_option >= 2 && menu_option <= 5)) //If the game is on the menu page.
 			{
-				level = 1; //For starting level one.
-				show_map = 0; //To stop running show_map codes.
+				menu_option = selectMenuOption(menu_option, mx, my);
+			}
+
+			if (menu_option == 1)
+			{
+				intro_level = 1;
+				menu_option = 6; //To stop running menu codes.
+				controlSound(true, 1); //For sound.
+			}
+
+			else if (show_map == 1)
+			{
+				if (mx >= 700 && mx <= 755 && my >= 473 && my <= 533)
+				{
+					level = 1; //For starting level one.
+					show_map = 0; //To stop running show_map codes.
+				}
+			}
+
+			else if (show_gift == 1 && gift_taken)
+			{
+				if (mx >= 630 && mx <= 882 && my >= 468 && my <= 645)
+				{
+					intro_level = 2; //For starting intro level two.
+					show_gift = 0; //To stop running show_gift codes.
+				}
+			}
+
+			else if (show_map == 2)
+			{
+				if (mx >= 925 && mx <= 980 && my >= 495 && my <= 555)
+				{
+					level = 2; //For starting level two.
+					show_map = 0; //To stop running show_map codes.
+				}
+			}
+
+			if (game_over_index == 1 || game_over_index == 2) //If high score is achieved.
+			{
+				activateTextBox(mx, my); //This will activate the text box to enter high scorer's name.
+			}
+
+			if (game_over_index == 0 || game_over_index == 1 || game_over_index == 2) //If high score is achieved.
+			{
+				if (mx >= 547 && mx <= 968 && my >= 60 && my <= 116)
+				{
+					menu_option = 0; //To go to home.
+					level = 0;
+					intro_level = 0;
+					show_map = 0;
+					show_gift = 0;
+
+					ground_player.score = 0;
+					ground_player.health = 100;
+					player_distance = 0;
+
+					intro_player.x = 160;
+					intro_player.y = 30;
+
+					ground_player.x = 160;
+
+					flying_player.x = 160;
+					flying_player.y = 520;
+
+					game_over = false;
+					player_rank = 0;
+					game_over_index = 0;
+					memset(high_score.name, NULL, sizeof(high_score.name)); //Clearing the name.
+				}
 			}
 		}
 
-		else if (show_gift == 1 && gift_taken)
+		if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN)
 		{
-			if (mx >= 630 && mx <= 882 && my >= 468 && my <= 645)
-			{
-				intro_level = 2; //For starting intro level two.
-				show_gift = 0; //To stop running show_gift codes.
-			}
+
 		}
-
-		else if (show_map == 2)
-		{
-			if (mx >= 925 && mx <= 980 && my >= 495 && my <= 555)
-			{
-				level = 2; //For starting level two.
-				show_map = 0; //To stop running show_map codes.
-			}
-		}
-
-		if (game_over_index == 1 || game_over_index == 2) //If high score is achieved.
-		{
-			activateTextBox(mx, my); //This will activate the text box to enter high scorer's name.
-		}
-
-		if (game_over_index == 0 || game_over_index == 1 || game_over_index == 2) //If high score is achieved.
-		{
-			if (mx >= 547 && mx <= 968 && my >= 60 && my <= 116)
-			{
-				menu_option = 0; //To go to home.
-				level = 0;
-				intro_level = 0;
-				show_map = 0;
-				show_gift = 0;
-
-				ground_player.score = 0;
-				ground_player.health = 100;
-				player_distance = 0;
-
-				intro_player.x = 160;
-				intro_player.y = 30;
-
-				ground_player.x = 160;
-
-				flying_player.x = 160;
-				flying_player.y = 520;
-
-				game_over = false;
-				player_rank = 0;
-				game_over_index = 0;
-				memset(high_score.name, NULL, sizeof(high_score.name)); //Clearing the name.
-			}
-		}
-	}
-
-	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN)
-	{
-
 	}
 }
 
@@ -235,343 +248,351 @@ void iMouse(int button, int state, int mx, int my)
 
 void iKeyboard(unsigned char key)
 {
-	if (field_active) //If high score is achieved and texbox is active for entering name.
+	if (!pause)
 	{
-		inputName(key);
-	}
-
-	if (key == '\r')
-	{
-		if (field_active && game_over && player_rank != 0) //This block will execute after entering the high scorer's name and pressing Enter.
+		if (field_active) //If high score is achieved and texbox is active for entering name.
 		{
-			field_active = false; //To deactivate the name input text box.
-			saveScore();
-			memset(high_score.name, NULL, sizeof(high_score.name)); //Clearing the name after saving the high score.
-			name_index = 0;
-			ground_player.health = 100;
-			ground_player.score = 0;
-			game_over = false;
-			menu_option = 0;
+			inputName(key);
 		}
-	}
 
-	if (key == ' ')
-	{
-		fire = true;
-	}
-
-	if (key == 'e' || key == 'E')
-	{
-		if (intro_level == 1)
+		if (key == '\r')
 		{
-			if (intro_player.x + intro_player.extended_x + 35 >= stair_top.x && intro_player.x + intro_player.extended_x + intro_player.dimension_x - 35 <= stair_top.x + stair_top.dimension_x && intro_player.y + intro_player.extended_y + jumping_height >= stair_top.y + stair_top.dimension_y)
+			if (field_active && game_over && player_rank != 0) //This block will execute after entering the high scorer's name and pressing Enter.
 			{
-				show_map = 1; //For showing map after intro level one.
-				intro_level = 0; //To stop running intro level one codes.
+				field_active = false; //To deactivate the name input text box.
+				saveScore();
+				memset(high_score.name, NULL, sizeof(high_score.name)); //Clearing the name after saving the high score.
+				name_index = 0;
+				ground_player.health = 100;
+				ground_player.score = 0;
+				game_over = false;
+				menu_option = 0;
 			}
 		}
 
-		else if (show_gift == 1)
+		if (key == ' ')
 		{
-			if (intro_player.x + intro_player.extended_x + 35 >= 1320 && intro_player.x + intro_player.extended_x + intro_player.dimension_x - 35 <= 1480)
+			fire = true;
+		}
+
+		if (key == 'e' || key == 'E')
+		{
+			if (intro_level == 1)
 			{
-				gift_taken = true;
+				if (intro_player.x + intro_player.extended_x + 35 >= stair_top.x && intro_player.x + intro_player.extended_x + intro_player.dimension_x - 35 <= stair_top.x + stair_top.dimension_x && intro_player.y + intro_player.extended_y + jumping_height >= stair_top.y + stair_top.dimension_y)
+				{
+					show_map = 1; //For showing map after intro level one.
+					intro_level = 0; //To stop running intro level one codes.
+				}
+			}
+
+			else if (show_gift == 1)
+			{
+				if (intro_player.x + intro_player.extended_x + 35 >= 1320 && intro_player.x + intro_player.extended_x + intro_player.dimension_x - 35 <= 1480)
+				{
+					gift_taken = true;
+				}
 			}
 		}
-	}
 
-	if (key == 'm' || key == 'M')
-	{
-		if (play_sound == true)
+		if (key == 'm' || key == 'M')
 		{
-			play_sound = false;
-			controlSound(play_sound, menu_option);
-		}
-		else
-		{
-			play_sound = true;
-			controlSound(play_sound, menu_option);
-		}
-	}
-
-	if (key == 's' || key == 'S')
-	{
-		if ((level == 1 || level == 2) && shield_count > 0)
-		{
-			if (!active_shield)
+			if (play_sound == true)
 			{
-				active_shield = true;
+				play_sound = false;
+				controlSound(play_sound, menu_option);
 			}
 			else
 			{
-				active_shield = false;
+				play_sound = true;
+				controlSound(play_sound, menu_option);
 			}
 		}
-	}
 
-	if (key == '1')
-	{
-		show_map = 1;
-		intro_level = 0;
-		level = 0;
-		show_gift = 0;
-		menu_option = 6;
-		game_over = false;
-	}
+		if (key == 's' || key == 'S')
+		{
+			if ((level == 1 || level == 2) && shield_count > 0)
+			{
+				if (!active_shield)
+				{
+					active_shield = true;
+				}
+				else
+				{
+					active_shield = false;
+				}
+			}
+		}
 
-	if (key == '2')
-	{
-		level = 1;
-		intro_level = 0;
-		show_map = 0;
-		show_gift = 0;
-		menu_option = 6;
-		game_over = false;
-	}
+		if (key == '1')
+		{
+			show_map = 1;
+			intro_level = 0;
+			level = 0;
+			show_gift = 0;
+			menu_option = 6;
+			game_over = false;
+		}
 
-	if (key == '3')
-	{
-		show_gift = 1;
-		intro_level = 0;
-		level = 0;
-		show_map = 0;
-		menu_option = 6;
-		game_over = false;
+		if (key == '2')
+		{
+			level = 1;
+			intro_level = 0;
+			show_map = 0;
+			show_gift = 0;
+			menu_option = 6;
+			game_over = false;
+		}
 
-		intro_player.x = 160;
-		intro_player.y = 30;
-	}
+		if (key == '3')
+		{
+			show_gift = 1;
+			intro_level = 0;
+			level = 0;
+			show_map = 0;
+			menu_option = 6;
+			game_over = false;
 
-	if (key == '4')
-	{
-		intro_level = 2;
-		level = 0;
-		show_map = 0;
-		show_gift = 0;
-		menu_option = 6;
-		game_over = false;
-	}
+			intro_player.x = 160;
+			intro_player.y = 30;
+		}
 
-	if (key == '5')
-	{
-		show_map = 2;
-		intro_level = 0;
-		level = 0;
-		show_gift = 0;
-		menu_option = 6;
-		game_over = false;
-	}
+		if (key == '4')
+		{
+			intro_level = 2;
+			level = 0;
+			show_map = 0;
+			show_gift = 0;
+			menu_option = 6;
+			game_over = false;
+		}
 
-	if (key == '6')
-	{
-		level = 2;
-		show_map = 0;
-		intro_level = 0;
-		show_gift = 0;
-		menu_option = 6;
-		game_over = false;
+		if (key == '5')
+		{
+			show_map = 2;
+			intro_level = 0;
+			level = 0;
+			show_gift = 0;
+			menu_option = 6;
+			game_over = false;
+		}
 
-		flying_player.x = 160;
-		flying_player.y = 520;
+		if (key == '6')
+		{
+			level = 2;
+			show_map = 0;
+			intro_level = 0;
+			show_gift = 0;
+			menu_option = 6;
+			game_over = false;
+
+			flying_player.x = 160;
+			flying_player.y = 520;
+		}
 	}
 
 	if (key == 'p' || key == 'P')
 	{
-		if (!pause)
+		if (intro_level != 0 || level != 0 || show_gift != 0)
 		{
-			pause = true;
+			if (!pause)
+			{
+				pause = true;
 
-			iPauseTimer(timer_ten_mili);
-			iPauseTimer(timer_twenty_mili);
-			iPauseTimer(timer_forty_mili);
-			iPauseTimer(timer_hundred_mili);
-			iPauseTimer(timer_one_sec);
-			iPauseTimer(timer_four_sec);
-		}
-		else
-		{
-			pause = false;
+				iPauseTimer(timer_ten_mili);
+				iPauseTimer(timer_twenty_mili);
+				iPauseTimer(timer_forty_mili);
+				iPauseTimer(timer_hundred_mili);
+				iPauseTimer(timer_one_sec);
+				iPauseTimer(timer_four_sec);
+			}
+			else
+			{
+				pause = false;
 
-			iResumeTimer(timer_ten_mili);
-			iResumeTimer(timer_twenty_mili);
-			iResumeTimer(timer_forty_mili);
-			iResumeTimer(timer_hundred_mili);
-			iResumeTimer(timer_one_sec);
-			iResumeTimer(timer_four_sec);
+				iResumeTimer(timer_ten_mili);
+				iResumeTimer(timer_twenty_mili);
+				iResumeTimer(timer_forty_mili);
+				iResumeTimer(timer_hundred_mili);
+				iResumeTimer(timer_one_sec);
+				iResumeTimer(timer_four_sec);
+			}
 		}
 	}
 }
 
 void iSpecialKeyboard(unsigned char key)
 {
-
-	if (key == GLUT_KEY_LEFT)
+	if (!pause)
 	{
-		if (intro_level == 1 || show_gift == 1) //Moving character for intro levels.
+		if (key == GLUT_KEY_LEFT)
 		{
-			if (jumping_height == 0)
+			if (intro_level == 1 || show_gift == 1) //Moving character for intro levels.
 			{
-				intro_player.condition = 3;
-			}
-
-			if (intro_player.x > -34)
-			{
-				intro_player.x -= 4;
-			}
-
-			changeRunningBackImage();
-		}
-
-		if (level == 1) //Moving character and background for level one.
-		{
-			if (jumping_height == 0)
-			{
-				ground_player.condition = 3;
-			}
-
-			if (ground_player.x > -34)
-			{
-				ground_player.x -= 3;
-			}
-
-			player_distance--;
-
-			moveBackgroundBack();
-			changeRunningBackImage();
-		}
-
-		if (level == 2 && flying_player.x + flying_player.extended_x > 15) //Moves player for level two.
-		{
-			/*for (int i = 0; i < 15; i++)
-			{
-				flying_player.x -= 1;
-			}*/
-			plane_direction = 1;
-		}
-	}
-
-	if (key == GLUT_KEY_RIGHT)
-	{
-		if (intro_level == 1 || show_gift == 1) //Moving character for intro levels.
-		{
-			if (jumping_height == 0)
-			{
-				intro_player.condition = 2;
-			}
-
-			if (intro_player.x < 1395)
-			{
-				intro_player.x += 4;
-			}
-
-			changeRunningImage();
-		}
-
-		if (level == 1) //Moving character and background for level one.
-		{
-			if (jumping_height == 0)
-			{
-				ground_player.condition = 2;
-			}
-
-			if (ground_player.x < 1485)
-			{
-				if (ground_player.x < 1100)
+				if (jumping_height == 0)
 				{
-					ground_player.x += 3;
+					intro_player.condition = 3;
+				}
+
+				if (intro_player.x > -34)
+				{
+					intro_player.x -= 4;
+				}
+
+				changeRunningBackImage();
+			}
+
+			if (level == 1) //Moving character and background for level one.
+			{
+				if (jumping_height == 0)
+				{
+					ground_player.condition = 3;
+				}
+
+				if (ground_player.x > -34)
+				{
+					ground_player.x -= 3;
+				}
+
+				player_distance--;
+
+				moveBackgroundBack();
+				changeRunningBackImage();
+			}
+
+			if (level == 2 && flying_player.x + flying_player.extended_x > 15) //Moves player for level two.
+			{
+				/*for (int i = 0; i < 15; i++)
+				{
+					flying_player.x -= 1;
+				}*/
+				plane_direction = 1;
+			}
+		}
+
+		if (key == GLUT_KEY_RIGHT)
+		{
+			if (intro_level == 1 || show_gift == 1) //Moving character for intro levels.
+			{
+				if (jumping_height == 0)
+				{
+					intro_player.condition = 2;
+				}
+
+				if (intro_player.x < 1395)
+				{
+					intro_player.x += 4;
+				}
+
+				changeRunningImage();
+			}
+
+			if (level == 1) //Moving character and background for level one.
+			{
+				if (jumping_height == 0)
+				{
+					ground_player.condition = 2;
+				}
+
+				if (ground_player.x < 1485)
+				{
+					if (ground_player.x < 1100)
+					{
+						ground_player.x += 3;
+					}
+					else
+					{
+						ground_player.x += 8;
+					}
+
+					player_distance++;
+					//cout << player_distance << endl;
+
+					if (player_distance == 1000 && !magic_stone.taken)
+					{
+						magic_stone.state = true;
+					}
+					else if (player_distance == 1520 && !magic_chest.taken)
+					{
+						magic_chest.state = true;
+					}
+					else if (player_distance == 1950 && !magic_key.taken)
+					{
+						magic_key.state = true;
+					}
 				}
 				else
 				{
-					ground_player.x += 8;
+					ground_player.x = -125;
 				}
 
-				player_distance++;
-				cout << player_distance << endl;
+				moveBackground();
+				changeRunningImage();
+			}
 
-				if (player_distance == 1000 && !magic_stone.taken)
+			if (level == 2 && flying_player.x + flying_player.extended_x + flying_player.dimension_x < 1505) //Moves player for level two.
+			{
+				/*for (int i = 0; i < 15; i++)
 				{
-					magic_stone.state = true;
-				}
-				else if (player_distance == 1520 && !magic_chest.taken)
+					flying_player.x += 1;
+				}*/
+
+				plane_direction = 2;
+			}
+		}
+
+		if (key == GLUT_KEY_UP)
+		{
+			if (intro_level == 1 || show_gift == 1) //Moving character for intro levels.
+			{
+				if (intro_player.condition <= 3)
 				{
-					magic_chest.state = true;
+					intro_player.condition += 4;
 				}
-				else if (player_distance == 1950 && !magic_key.taken)
+
+				if (!jump)
 				{
-					magic_key.state = true;
+					jump = true;
+					jumping = true;
 				}
 			}
-			else
+
+			if (level == 1) //Moving character for level one.
 			{
-				ground_player.x = -125;
+				if (ground_player.condition <= 3)
+				{
+					ground_player.condition += 4;
+				}
+
+				if (!jump)
+				{
+					jump = true;
+					jumping = true;
+				}
 			}
 
-			moveBackground();
-			changeRunningImage();
-		}
-
-		if (level == 2 && flying_player.x + flying_player.extended_x + flying_player.dimension_x < 1505) //Moves player for level two.
-		{
-			/*for (int i = 0; i < 15; i++)
+			if (level == 2 && flying_player.y + flying_player.extended_y + flying_player.dimension_y < 777) //Moves player for level two.
 			{
-				flying_player.x += 1;
-			}*/
+				/*for (int i = 0; i < 15; i++)
+				{
+					flying_player.y += 1;
+				}*/
 
-			plane_direction = 2;
-		}
-	}
-
-	if (key == GLUT_KEY_UP)
-	{
-		if (intro_level == 1 || show_gift == 1) //Moving character for intro levels.
-		{
-			if (intro_player.condition <= 3)
-			{
-				intro_player.condition += 4;
-			}
-
-			if (!jump)
-			{
-				jump = true;
-				jumping = true;
+				plane_direction = 3;
 			}
 		}
 
-		if (level == 1) //Moving character for level one.
+		if (key == GLUT_KEY_DOWN)
 		{
-			if (ground_player.condition <= 3)
+			if (level == 2 && flying_player.y + flying_player.extended_y > 15) //Moves player for level two.
 			{
-				ground_player.condition += 4;
+				/*for (int i = 0; i < 5; i++)
+				{
+					flying_player.y -= 1;
+				}*/
+
+				plane_direction = 4;
 			}
-
-			if (!jump)
-			{
-				jump = true;
-				jumping = true;
-			}
-		}
-
-		if (level == 2 && flying_player.y + flying_player.extended_y + flying_player.dimension_y < 777) //Moves player for level two.
-		{
-			/*for (int i = 0; i < 15; i++)
-			{
-				flying_player.y += 1;
-			}*/
-
-			plane_direction = 3;
-		}
-	}
-
-	if (key == GLUT_KEY_DOWN)
-	{
-		if (level == 2 && flying_player.y + flying_player.extended_y > 15) //Moves player for level two.
-		{
-			/*for (int i = 0; i < 5; i++)
-			{
-				flying_player.y -= 1;
-			}*/
-
-			plane_direction = 4;
 		}
 	}
 
@@ -724,12 +745,12 @@ void fourSec()
 
 int main()
 {
-	iSetTimer(10, tenMiliSec);
-	iSetTimer(20, twentyMiliSec);
-	iSetTimer(40, fortyMiliSec);
-	iSetTimer(100, hundredMiliSec);
-	iSetTimer(1000, oneSec);
-	iSetTimer(4000, fourSec);
+	timer_ten_mili = iSetTimer(10, tenMiliSec);
+	timer_twenty_mili = iSetTimer(20, twentyMiliSec);
+	timer_forty_mili = iSetTimer(40, fortyMiliSec);
+	timer_hundred_mili = iSetTimer(100, hundredMiliSec);
+	timer_one_sec = iSetTimer(1000, oneSec);
+	timer_four_sec = iSetTimer(4000, fourSec);
 
 	controlSound(play_sound, 0);
 

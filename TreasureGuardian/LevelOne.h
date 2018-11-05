@@ -23,7 +23,10 @@ void levelOne()
 	{
 		iShowImage(bullet_x, ground_player.y + jumping_height + 40, 20, 10, bullet_image);
 
-		bullet_x += 10;
+		if (!pause) //Bullet doesn't move when game is paused.
+		{
+			bullet_x += 10;
+		}
 
 		if (bullet_x > 1520)
 		{
@@ -64,7 +67,10 @@ void levelOne()
 	{
 		iShowImage(bullet_back_x, ground_player.y + jumping_height + 40, 20, 10, bullet_back_image);
 
-		bullet_back_x -= 10;
+		if (!pause) //Bullet doesn't move when game is paused.
+		{
+			bullet_back_x -= 10;
+		}
 
 		if (bullet_back_x < -20)
 		{

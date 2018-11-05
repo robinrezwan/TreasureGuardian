@@ -32,7 +32,7 @@ void showHighScores()
 
 	if (fp == NULL)
 	{
-		cout << "File not found!" << endl;
+		//cout << "File not found!" << endl;
 	}
 
 	else

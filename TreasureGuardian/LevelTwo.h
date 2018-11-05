@@ -88,7 +88,12 @@ void levelTwo()
 	{
 		bullet_y = flying_player.y + 63;
 		iShowImage(bullet_x, bullet_y, 20, 10, bullet_image);
-		bullet_x += 10;
+
+		if (!pause) //Bullet doesn't move when game is paused.
+		{
+			bullet_x += 10;
+		}
+
 		if (bullet_x > 1520)
 		{
 			fire = false;
@@ -115,7 +120,11 @@ void levelTwo()
 		if (enemybullethit1)
 		{
 			iShowImage(antibullet1_x, enemy_two1.y + 20, 20, 10, bullet_back_image);
-			antibullet1_x -= 2;
+
+			if (!pause) //Bullet doesn't move when game is paused.
+			{
+				antibullet1_x -= 2;
+			}
 
 			//Player, enemy-fire collision.
 			if (checkCollision(flying_player.x + flying_player.extended_x, flying_player.y + flying_player.extended_y, flying_player.dimension_x, flying_player.dimension_y, antibullet1_x, enemy_two1.y + 20, 20, 10))
@@ -150,7 +159,11 @@ void levelTwo()
 		if (enemybullethit2)
 		{
 			iShowImage(antibullet2_x, enemy_two2.y + 20, 20, 10, bullet_back_image);
-			antibullet2_x -= 2;
+
+			if (!pause) //Bullet doesn't move when game is paused.
+			{
+				antibullet2_x -= 2;
+			}
 
 			//Player, enemy-fire collision.
 			if (checkCollision(flying_player.x + flying_player.extended_x, flying_player.y + flying_player.extended_y, flying_player.dimension_x, flying_player.dimension_y, antibullet2_x, enemy_two2.y + 20, 20, 10))
@@ -185,7 +198,11 @@ void levelTwo()
 		if (enemybullethit3)
 		{
 			iShowImage(antibullet3_x, enemy_two3.y + 20, 20, 10, bullet_back_image);
-			antibullet3_x -= 2;
+
+			if (!pause) //Bullet doesn't move when game is paused.
+			{
+				antibullet3_x -= 2;
+			}
 
 			//Player, enemy-fire collision.
 			if (checkCollision(flying_player.x + flying_player.extended_x, flying_player.y + flying_player.extended_y, flying_player.dimension_x, flying_player.dimension_y, antibullet3_x, enemy_two3.y + 20, 20, 10))

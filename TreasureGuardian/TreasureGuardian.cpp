@@ -172,7 +172,7 @@ void iMouse(int button, int state, int mx, int my)
 			{
 				intro_level = 1;
 				menu_option = 6; //To stop running menu codes.
-				controlSound(true, 1); //For sound.
+				controlSound(true); //For playing sound.
 			}
 
 			else if (show_map == 1)
@@ -300,12 +300,12 @@ void iKeyboard(unsigned char key)
 			if (play_sound == true)
 			{
 				play_sound = false;
-				controlSound(play_sound, menu_option);
+				controlSound(play_sound);
 			}
 			else
 			{
 				play_sound = true;
-				controlSound(play_sound, menu_option);
+				controlSound(play_sound);
 			}
 		}
 
@@ -752,11 +752,11 @@ int main()
 	timer_one_sec = iSetTimer(1000, oneSec);
 	timer_four_sec = iSetTimer(4000, fourSec);
 
-	controlSound(play_sound, 0);
-
 	iInitialize(SCREEN_WIDTH, SCREEN_HIGHT, "TreasureGuardian");
 
 	loadImage();
+
+	controlSound(true); //For playing sound.
 
 	iStart();
 

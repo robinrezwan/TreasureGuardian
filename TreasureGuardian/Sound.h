@@ -3,16 +3,16 @@
 
 /*__________________________________________________________Controlling sound._____________________________________________________________*/
 
-void controlSound(bool play_sound, int sound_index)
+void controlSound(bool play_sound)
 {
 	if (play_sound)
 	{
-		if (sound_index == 0)
+		if (menu_option == 0 || (menu_option >= 2 && menu_option <= 5))
 		{
 			PlaySound("sound\\intro_music.wav", NULL, SND_LOOP | SND_ASYNC); //The soundtrack is "Warrior" by Randy Dominguez.
 		}
 
-		else if (sound_index == 1)
+		else
 		{
 			PlaySound("sound\\level_one_music.wav", NULL, SND_LOOP | SND_ASYNC); //The soundtrack is "Heroes Never Die" by David Chappell.
 		}

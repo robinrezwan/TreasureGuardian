@@ -310,8 +310,8 @@ void iKeyboard(unsigned char key)
 				}
 				else
 				{
-					controlSound(true);
 					mute = false;
+					controlSound(true);
 				}
 			}
 		}

@@ -195,10 +195,10 @@ void loadImage()
 	background_two2[0] = iLoadImage("level_two\\background\\background_two2.png");
 	background_two2[1] = iLoadImage("level_two\\background\\background_two2.png");
 
-	cout << "Loading completed! Enjoy!" << endl;
-
 	background_two3[0] = iLoadImage("level_two\\background\\background_two3.png");
 	background_two3[1] = iLoadImage("level_two\\background\\background_two3.png");
+
+	cout << "Loading completed! Enjoy!" << endl;
 
 	/*Characters for level two.*/
 

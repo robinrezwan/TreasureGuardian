@@ -213,7 +213,7 @@ void iMouse(int button, int state, int mx, int my)
 				if (mx >= 547 && mx <= 968 && my >= 60 && my <= 116)
 				{
 					menu_option = 0; //To go to home.
-					controlSound(true); //For playing sound.
+					//controlSound(true); //For playing sound.
 					sound_playing = false;
 
 					level = 0;

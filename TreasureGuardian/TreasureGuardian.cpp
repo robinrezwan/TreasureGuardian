@@ -774,6 +774,9 @@ int main()
 	timer_one_sec = iSetTimer(1000, oneSec);
 	timer_four_sec = iSetTimer(4000, fourSec);
 
+	system("Color 0C"); //For only windows platform.
+	cout << "Treasure Guardian is loading! Please, wait!" << endl;
+
 	iInitialize(SCREEN_WIDTH, SCREEN_HIGHT, "TreasureGuardian");
 
 	loadImage();

@@ -22,6 +22,8 @@ void loadImage()
 			highlight_image[i] = iLoadImage(highlight_image_location[i]);
 	}
 
+	cout << "L"; //Printing loading.
+
 	/*_________________________________________________Custom number font rendering.___________________________________________________*/
 
 	for (int i = 0; i <= 9; i++)
@@ -42,6 +44,8 @@ void loadImage()
 		health_bar[i] = iLoadImage(health_bar_image[i]);
 	}
 
+	cout << "    O"; //Printing loading.
+
 	for (int i = 0; i <= 10; i++)
 	{
 		shield_bar[i] = iLoadImage(shield_bar_image[i]);
@@ -57,6 +61,8 @@ void loadImage()
 	score_coin[2] = iLoadImage("others\\icons\\Coin_002.png");
 	score_coin[3] = iLoadImage("others\\icons\\Coin_003.png");
 
+	cout << "    A"; //Printing loading.
+
 	/*___________________________________________________________Explosion.____________________________________________________________*/
 
 	for (int i = 0; i <= 19; i++)
@@ -68,6 +74,8 @@ void loadImage()
 
 	map_screen[0] = iLoadImage("others\\screens\\map_screen1.png");
 	map_screen[1] = iLoadImage("others\\screens\\map_screen2.png");
+
+	cout << "    D"; //Printing loading.
 
 	gift_screen = iLoadImage("others\\screens\\land_screen.png");
 	gift_plane[0] = iLoadImage("others\\objects\\bottled_plane.png");
@@ -88,13 +96,14 @@ void loadImage()
 		goblin.image[i] = iLoadImage(goblin_image_location[i]);
 	}
 
-
 	/*________________________________________________________Intro Level Two__________________________________________________________*/
 
 	intro_two_background = iLoadImage("intro_level_two\\background.png");
 	apple[0] = iLoadImage("intro_level_two\\bad_apple.png");
 	apple[1] = iLoadImage("intro_level_two\\good_apple.png");
 	ring = iLoadImage("intro_level_two\\ring.png");
+
+	cout << "    I"; //Printing loading.
 
 	/*__________________________________________________________Level One._____________________________________________________________*/
 
@@ -111,6 +120,8 @@ void loadImage()
 	background_one3[0] = iLoadImage("level_one\\background\\background_one3.png");
 	background_one3[1] = iLoadImage("level_one\\background\\background_one3.png");
 
+	cout << "    N"; //Printing loading.
+
 	/*Magic objects.*/
 
 	stone = iLoadImage("level_one\\magic_objects\\stone.png");
@@ -124,10 +135,14 @@ void loadImage()
 		ground_player.image_idle[i] = iLoadImage(player_idle_image[i]);
 	}
 
+	cout << "    G"; //Printing loading.
+
 	for (int i = 0; i <= 11; i++)
 	{
 		ground_player.image_idleback[i] = iLoadImage(player_idleback_image[i]);
 	}
+
+	cout << "    !"; //Printing loading.
 
 	for (int i = 0; i <= 7; i++)
 	{
@@ -143,6 +158,8 @@ void loadImage()
 	{
 		ground_player.image_jumping[i] = iLoadImage(player_jumping_image[i]);
 	}
+
+	cout << "!"; //Printing loading.
 
 	for (int i = 0; i <= 7; i++)
 	{
@@ -161,6 +178,8 @@ void loadImage()
 		enemy_one1.image[i] = iLoadImage(enemy1_image_location[i]);
 	}
 
+	cout << "!\n"; //Printing loading.
+
 	for (int i = 0; i <= 8; i++)
 	{
 		enemy_one3.image[i] = iLoadImage(enemy3_image_location[i]);
@@ -175,6 +194,8 @@ void loadImage()
 
 	background_two2[0] = iLoadImage("level_two\\background\\background_two2.png");
 	background_two2[1] = iLoadImage("level_two\\background\\background_two2.png");
+
+	cout << "Loading completed! Enjoy!" << endl;
 
 	background_two3[0] = iLoadImage("level_two\\background\\background_two3.png");
 	background_two3[1] = iLoadImage("level_two\\background\\background_two3.png");

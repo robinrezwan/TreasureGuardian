@@ -5,22 +5,30 @@
 
 void controlSound(bool play_sound)
 {
-	if (play_sound)
+	if (!mute)
 	{
-		if (menu_option == 0 || (menu_option >= 2 && menu_option <= 5))
+		if (play_sound)
 		{
-			PlaySound("sound\\intro_music.wav", NULL, SND_LOOP | SND_ASYNC); //The soundtrack is "Warrior" by Randy Dominguez.
+			if (menu_option == 0 || (menu_option >= 2 && menu_option <= 5))
+			{
+				PlaySound("sound\\intro_music.wav", NULL, SND_LOOP | SND_ASYNC); //The soundtrack is "Warrior" by Randy Dominguez.
+			}
+
+			else if (game_over)
+			{
+				PlaySound("sound\\game_over_music.wav", NULL, SND_LOOP | SND_ASYNC); //The soundtrack is "Pride and Glory" by Jacqueline Loran.
+			}
+
+			else
+			{
+				PlaySound("sound\\game_music.wav", NULL, SND_LOOP | SND_ASYNC); //The soundtrack is "Heroes Never Die" by David Chappell.
+			}
 		}
 
 		else
 		{
-			PlaySound("sound\\level_one_music.wav", NULL, SND_LOOP | SND_ASYNC); //The soundtrack is "Heroes Never Die" by David Chappell.
+			PlaySound(0, 0, 0);
 		}
-	}
-
-	else if (!play_sound)
-	{
-		PlaySound(0, 0, 0);
 	}
 }
 

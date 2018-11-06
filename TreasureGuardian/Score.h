@@ -62,15 +62,14 @@ void setPlayerName()
 	if (field_active)
 	{
 		iSetColor(0, 0, 0);
-		iRectangle(509, 290, 470, 74);
-		iText(600, 310, high_score.name, GLUT_BITMAP_TIMES_ROMAN_24); //Gets the value from void inputName() function.
+		iRectangle(509, 290, 486, 58);
+		iText(575, 310, high_score.name, GLUT_BITMAP_TIMES_ROMAN_24); //Gets the value from void inputName() function.
 		//cout << "Taking input." << endl;
 	}
-
 	else
 	{
 		iSetColor(0, 0, 0);
-		iText(600, 297, high_score.name, GLUT_BITMAP_HELVETICA_18);
+		iText(575, 310, high_score.name, GLUT_BITMAP_TIMES_ROMAN_24);
 	}
 }
 
@@ -85,6 +84,11 @@ void activateTextBox(int mx, int my)
 		{
 			field_active = true;
 			//cout << "Text box activated." << endl;
+		}
+		else
+		{
+			field_active = false;
+			//cout << "Text box deactivated." << endl;
 		}
 	}
 }

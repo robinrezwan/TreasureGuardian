@@ -26,6 +26,8 @@ int highlight_image[7];
 /*Sound*/
 
 bool play_sound = true;
+bool mute = false;
+bool sound_playing = false;
 
 /*___________________________________________________Custom number font rendering._____________________________________________________*/
 
@@ -288,5 +290,9 @@ int bullet_y;
 
 bool pause = false;
 int pause_screen;
+
+/*Others*/
+
+bool cheatcode_active = false; //For testing purpose.
 
 #endif // !VARIABLES_H_INCLUDED

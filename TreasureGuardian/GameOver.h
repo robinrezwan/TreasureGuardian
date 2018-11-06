@@ -6,6 +6,7 @@
 
 //#include "Variables.h"
 #include "Score.h"
+#include "Sound.h"
 
 /*______________________________________________Function for checking score rank.______________________________________________________*/
 
@@ -94,13 +95,19 @@ void gameOver()
 	{
 		//cout << "Game over codes running!" << endl;
 
+		if (!sound_playing)
+		{
+			controlSound(true);
+			sound_playing = true;
+		}
+
 		level = 0;
 		ground_player.health = 0;
 		high_score.score = ground_player.score;
 
 		checkRank(); //Checks the players rank according to his score.
 
-					 //cout << "Player rank: " << player_rank << endl;
+		//cout << "Player rank: " << player_rank << endl;
 
 		iShowImage(0, 0, SCREEN_WIDTH, SCREEN_HIGHT, game_over_image[game_over_index]); //Shows the game over screen.
 
@@ -108,7 +115,7 @@ void gameOver()
 		char score_string[20];
 		sprintf(score_string, "%d", ground_player.score);
 		iSetColor(255, 0, 0);
-		iText(810, 408, score_string, GLUT_BITMAP_TIMES_ROMAN_24);
+		iText(790, 409, score_string, GLUT_BITMAP_TIMES_ROMAN_24);
 
 		if (game_over_index != 0) //If the player has acquired a position in the high score list.
 		{

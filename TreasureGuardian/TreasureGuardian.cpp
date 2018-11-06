@@ -172,6 +172,7 @@ void iMouse(int button, int state, int mx, int my)
 			{
 				intro_level = 1;
 				menu_option = 6; //To stop running menu codes.
+
 				controlSound(true); //For playing sound.
 			}
 
@@ -212,6 +213,9 @@ void iMouse(int button, int state, int mx, int my)
 				if (mx >= 547 && mx <= 968 && my >= 60 && my <= 116)
 				{
 					menu_option = 0; //To go to home.
+					controlSound(true); //For playing sound.
+					sound_playing = false;
+
 					level = 0;
 					intro_level = 0;
 					show_map = 0;
@@ -297,15 +301,18 @@ void iKeyboard(unsigned char key)
 
 		if (key == 'm' || key == 'M')
 		{
-			if (play_sound == true)
+			if (!field_active)
 			{
-				play_sound = false;
-				controlSound(play_sound);
-			}
-			else
-			{
-				play_sound = true;
-				controlSound(play_sound);
+				if (!mute)
+				{
+					controlSound(false);
+					mute = true;
+				}
+				else
+				{
+					controlSound(true);
+					mute = false;
+				}
 			}
 		}
 
@@ -324,70 +331,82 @@ void iKeyboard(unsigned char key)
 			}
 		}
 
-		if (key == '1')
+		if (key == '$')
 		{
-			show_map = 1;
-			intro_level = 0;
-			level = 0;
-			show_gift = 0;
-			menu_option = 6;
-			game_over = false;
+			cheatcode_active = true;
+			//cout << "Cheatcode activated!" << endl;
 		}
 
-		if (key == '2')
+		else if (cheatcode_active)
 		{
-			level = 1;
-			intro_level = 0;
-			show_map = 0;
-			show_gift = 0;
-			menu_option = 6;
-			game_over = false;
-		}
+			//cout << "Cheatcode used!" << endl;
+			if (key == '1')
+			{
+				show_map = 1;
+				intro_level = 0;
+				level = 0;
+				show_gift = 0;
+				menu_option = 6;
+				game_over = false;
+			}
 
-		if (key == '3')
-		{
-			show_gift = 1;
-			intro_level = 0;
-			level = 0;
-			show_map = 0;
-			menu_option = 6;
-			game_over = false;
+			if (key == '2')
+			{
+				level = 1;
+				intro_level = 0;
+				show_map = 0;
+				show_gift = 0;
+				menu_option = 6;
+				game_over = false;
+			}
 
-			intro_player.x = 160;
-			intro_player.y = 30;
-		}
+			if (key == '3')
+			{
+				show_gift = 1;
+				intro_level = 0;
+				level = 0;
+				show_map = 0;
+				menu_option = 6;
+				game_over = false;
 
-		if (key == '4')
-		{
-			intro_level = 2;
-			level = 0;
-			show_map = 0;
-			show_gift = 0;
-			menu_option = 6;
-			game_over = false;
-		}
+				intro_player.x = 160;
+				intro_player.y = 30;
+			}
 
-		if (key == '5')
-		{
-			show_map = 2;
-			intro_level = 0;
-			level = 0;
-			show_gift = 0;
-			menu_option = 6;
-			game_over = false;
-		}
+			if (key == '4')
+			{
+				intro_level = 2;
+				level = 0;
+				show_map = 0;
+				show_gift = 0;
+				menu_option = 6;
+				game_over = false;
+			}
 
-		if (key == '6')
-		{
-			level = 2;
-			show_map = 0;
-			intro_level = 0;
-			show_gift = 0;
-			menu_option = 6;
-			game_over = false;
+			if (key == '5')
+			{
+				show_map = 2;
+				intro_level = 0;
+				level = 0;
+				show_gift = 0;
+				menu_option = 6;
+				game_over = false;
+			}
 
-			flying_player.x = 160;
-			flying_player.y = 520;
+			if (key == '6')
+			{
+				level = 2;
+				show_map = 0;
+				intro_level = 0;
+				show_gift = 0;
+				menu_option = 6;
+				game_over = false;
+
+				flying_player.x = 160;
+				flying_player.y = 520;
+			}
+
+			cheatcode_active = false;
 		}
 	}
 
@@ -598,7 +617,10 @@ void iSpecialKeyboard(unsigned char key)
 
 	if (key == GLUT_KEY_HOME)
 	{
-		menu_option = 0;
+		menu_option = 0; //To go to home.
+		controlSound(true); //For playing sound.
+		sound_playing = false;
+
 		level = 0;
 		intro_level = 0;
 		show_map = 0;

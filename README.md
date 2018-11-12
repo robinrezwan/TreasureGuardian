@@ -6,8 +6,8 @@
 
 CSE 1200 Software Development Project
 
-Ahsanullah University of Science and Technology<br/>
-Department of Computer Science and Engineering
+Department of Computer Science and Engineering<br/>
+Ahsanullah University of Science and Technology
 
 
 **Project Information:**
@@ -22,4 +22,4 @@ Department of Computer Science and Engineering
 
 Robin Rezwan<br/>
 Samiul Islam Niloy<br/>
-Al Noman Bin Raihan
+Al Noman Limon

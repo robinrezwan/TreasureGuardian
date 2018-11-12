@@ -1,5 +1,5 @@
-#ifndef SCORE_H_INCLUDED
-#define SCORE_H_INCLUDED
+#ifndef SCORESAVE_H_INCLUDED
+#define SCORESAVE_H_INCLUDED
 
 #include <iostream>
 using namespace std;
@@ -47,7 +47,7 @@ void showHighScores()
 
 			iSetColor(0, 0, 0);
 			iText(280, text_y, high_score_temp.name, GLUT_BITMAP_TIMES_ROMAN_24);
-			iText(1060, text_y, score_string, GLUT_BITMAP_TIMES_ROMAN_24);
+			iText(1050, text_y, score_string, GLUT_BITMAP_TIMES_ROMAN_24);
 		}
 
 		fclose(fp);
@@ -62,14 +62,14 @@ void setPlayerName()
 	if (field_active)
 	{
 		iSetColor(0, 0, 0);
-		iRectangle(509, 290, 486, 58);
-		iText(575, 310, high_score.name, GLUT_BITMAP_TIMES_ROMAN_24); //Gets the value from void inputName() function.
+		iRectangle(518, 289, 486, 58);
+		iText(570, 310, high_score.name, GLUT_BITMAP_TIMES_ROMAN_24); //Gets the value from void inputName() function.
 		//cout << "Taking input." << endl;
 	}
 	else
 	{
 		iSetColor(0, 0, 0);
-		iText(575, 310, high_score.name, GLUT_BITMAP_TIMES_ROMAN_24);
+		iText(570, 310, high_score.name, GLUT_BITMAP_TIMES_ROMAN_24);
 	}
 }
 
@@ -80,7 +80,7 @@ void activateTextBox(int mx, int my)
 {
 	if (game_over && player_rank >= 1 && player_rank <= 5)
 	{
-		if (mx >= 509 && mx <= 995 && my >= 290 && my <= 348)
+		if (mx >= 518 && mx <= 1004 && my >= 289 && my <= 347)
 		{
 			field_active = true;
 			//cout << "Text box activated." << endl;
@@ -101,7 +101,7 @@ void inputName(unsigned char key)
 	if (game_over && player_rank >= 1 && player_rank <= 5)
 	{
 		//cout << "Entering text at index: " << name_index << endl;
-		if (field_active && name_index < 32)
+		if (field_active && name_index < 33)
 		{
 			if (key == '\b')
 			{
@@ -110,7 +110,7 @@ void inputName(unsigned char key)
 					high_score.name[--name_index] = NULL;
 				}
 			}
-			else if(key != '\r' && (key >= 'A' && key <= 'Z' || key >= 'a' && key <= 'z' || key >= '0' && key <= '9' || key == ' '))
+			else if (name_index < 32 && key != '\r' && (key >= 'A' && key <= 'Z' || key >= 'a' && key <= 'z' || key >= '0' && key <= '9' || key == ' '))
 			{
 				high_score.name[name_index++] = key;
 				//cout << high_score.name << endl;
@@ -233,4 +233,4 @@ void moveCoin()
 	}
 }
 
-#endif // !SCORE_H_INCLUDED
+#endif // !SCORESAVE_H_INCLUDED

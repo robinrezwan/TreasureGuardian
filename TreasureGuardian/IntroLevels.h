@@ -417,7 +417,7 @@ void introLevelOne()
 
 		if (fire && goblin.state && checkCollision(goblin.x, goblin.y, 120, 120, bullet_x, intro_player.y + jumping_height + 40, 20, 10))
 		{
-			cout << "Boom!" << endl;
+			//cout << "Boom!" << endl;
 			fire = false;
 			bullet_x = ground_player.x + 110;
 
@@ -691,11 +691,13 @@ void introLevelTwo()
 
 	/*__________________________________________________________Level change.__________________________________________________________*/
 
-	if (apple_count >= 25)
+	if (apple_count >= 20)
 	{
 		show_map = 2;
 		intro_level = 0;
 		apple_count = 0;
+
+		saveGame(); //To save the game progress.
 	}
 }
 
@@ -741,33 +743,121 @@ void cannonFire()
 //Apple showing condition.
 void showApple()
 {
-	static int choose_call = 0;
+	/*static int choose_call = 0;
 
-	if (choose_call % 11 == 0)
+	if (choose_call % 9 == 0)*/
 	{
 		show_apple = rand() % 10000;
 
-		apple_index1 = rand() % 2;
-		apple_index2 = rand() % 2;
-		apple_index3 = rand() % 2;
-		apple_index4 = rand() % 2;
-		apple_index5 = rand() % 2;
-		apple_index6 = rand() % 2;
-		apple_index7 = rand() % 2;
-		apple_index8 = rand() % 2;
-		apple_index9 = rand() % 2;
-		apple_index10 = rand() % 2;
-		apple_index11 = rand() % 2;
+		if ((rand() % 1000) % 2 == 0)
+		{
+			apple_index1 = 1;
+		}
+		else
+		{
+			apple_index1 = 0;
+		}
+
+		if ((rand() % 1000) % 2 == 0)
+		{
+			apple_index2 = 0;
+		}
+		else
+		{
+			apple_index2 = 1;
+		}
+
+		if ((rand() % 1000) % 2 == 0)
+		{
+			apple_index3 = 1;
+		}
+		else
+		{
+			apple_index3 = 0;
+		}
+
+		if ((rand() % 1000) % 2 == 0)
+		{
+			apple_index4 = 0;
+		}
+		else
+		{
+			apple_index4 = 1;
+		}
+
+		if ((rand() % 1000) % 2 == 0)
+		{
+			apple_index5 = 1;
+		}
+		else
+		{
+			apple_index5 = 0;
+		}
+
+		if ((rand() % 1000) % 2 == 0)
+		{
+			apple_index6 = 0;
+		}
+		else
+		{
+			apple_index6 = 1;
+		}
+
+		if ((rand() % 1000) % 2 == 0)
+		{
+			apple_index7 = 1;
+		}
+		else
+		{
+			apple_index7 = 0;
+		}
+
+		if ((rand() % 1000) % 2 == 0)
+		{
+			apple_index8 = 0;
+		}
+		else
+		{
+			apple_index8 = 1;
+		}
+
+		if ((rand() % 1000) % 2 == 0)
+		{
+			apple_index9 = 1;
+		}
+		else
+		{
+			apple_index9 = 0;
+		}
+
+		if ((rand() % 1000) % 2 == 0)
+		{
+			apple_index10 = 0;
+		}
+		else
+		{
+			apple_index10 = 1;
+		}
+
+		if ((rand() % 1000) % 2 == 0)
+		{
+			apple_index11 = 1;
+		}
+		else
+		{
+			apple_index11 = 0;
+		}
+
 
 		new_number = true;
 	}
 
-	choose_call++;
+	/*choose_call++;
 
-	if (choose_call >= 110)
+	if (choose_call >= 180)
 	{
 		choose_call = 0;
-	}
+	}*/
 }
 
 #endif // !INTROLEVELS_H_INCLUDED

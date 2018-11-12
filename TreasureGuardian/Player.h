@@ -37,7 +37,7 @@ struct Player
 	}
 
 	Player(int _x, int _y, int _dimension_x, int _dimension_y, int _extended_x, int _extended_y, bool _visible)
-	{	
+	{
 		//This constructor is for the player of level two.
 		x = _x;
 		y = _y;

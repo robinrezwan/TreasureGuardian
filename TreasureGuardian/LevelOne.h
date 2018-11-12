@@ -36,14 +36,24 @@ void levelOne()
 
 		/*Fire, enemy collision.*/
 
+		if (fire && enemy_one1.state && checkCollision(enemy_one1.x, enemy_one1.y, 190, 135, bullet_x, ground_player.y, 20, 10))
+		{
+			if (ground_player.condition != 4 && ground_player.condition != 6 && ground_player.condition != 5 && ground_player.condition != 7)
+			{
+				ground_player.score += 10;
+				fire = false;
+				enemy_one1.x = 1580 + rand() % 120;
+				bullet_x = ground_player.x + 110;
+			}
+		}
+
 		if (fire && enemy_one2.state && checkCollision(enemy_one2.x, enemy_one2.y, 180, 135, bullet_x, ground_player.y, 20, 10))
 		{
 			if (ground_player.condition != 4 && ground_player.condition != 6 && ground_player.condition != 5 && ground_player.condition != 7)
 			{
 				ground_player.score += 10;
 				fire = false;
-				//enemy2.state = false;
-				enemy_one2.x = 1580;
+				enemy_one2.x = 1580 + rand() % 420;
 				bullet_x = ground_player.x + 110;
 			}
 		}
@@ -54,8 +64,7 @@ void levelOne()
 			{
 				ground_player.score += 10;
 				fire = false;
-				//enemy3.state = false;
-				enemy_one3.x = 1580;
+				enemy_one3.x = 1580 + rand() % 120;
 				bullet_x = ground_player.x + 110;
 			}
 		}
@@ -80,14 +89,13 @@ void levelOne()
 
 		/*Fire, enemy collision.*/
 
-		if (fire && enemy_one3.state && checkCollision(enemy_one3.x, enemy_one3.y, 180, 135, bullet_back_x + 150, ground_player.y, 20, 10))
+		if (fire && enemy_one1.state && checkCollision(enemy_one1.x, enemy_one1.y, 190, 135, bullet_back_x + 150, ground_player.y, 20, 10))
 		{
 			if (ground_player.condition != 4 && ground_player.condition != 6 && ground_player.condition != 5 && ground_player.condition != 7)
 			{
 				ground_player.score += 10;
 				fire = false;
-				//enemy3.state = false;
-				enemy_one3.x = 1580;
+				enemy_one1.x = 1580 + rand() % 120;
 				bullet_back_x = ground_player.x - 110;
 			}
 		}
@@ -98,8 +106,18 @@ void levelOne()
 			{
 				ground_player.score += 10;
 				fire = false;
-				//enemy2.state = false;
-				enemy_one2.x = 1580;
+				enemy_one2.x = 1580 + rand() % 420;
+				bullet_back_x = ground_player.x - 110;
+			}
+		}
+
+		if (fire && enemy_one3.state && checkCollision(enemy_one3.x, enemy_one3.y, 180, 135, bullet_back_x + 150, ground_player.y, 20, 10))
+		{
+			if (ground_player.condition != 4 && ground_player.condition != 6 && ground_player.condition != 5 && ground_player.condition != 7)
+			{
+				ground_player.score += 10;
+				fire = false;
+				enemy_one3.x = 1580 + rand() % 120;
 				bullet_back_x = ground_player.x - 110;
 			}
 		}
@@ -293,13 +311,19 @@ void levelOne()
 
 	if (magic_object_gained >= 3)
 	{
+		//Resetting conditions.
 		show_gift = 1;
 		level = 0;
+		intro_level = 0;
+		show_map = 0;
+
 		ground_player.health = 100;
+		player_distance = 0;
 		shield_count = 0;
 
-		intro_player.x = 160;
-		intro_player.y = 30;
+		ground_player.x = 160;
+
+		saveGame(); //To save the game progress.
 	}
 }
 

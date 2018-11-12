@@ -68,6 +68,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="GameSave.h" />
     <ClInclude Include="IntroLevels.h" />
     <ClInclude Include="LevelOne.h" />
     <ClInclude Include="LevelTwo.h" />
@@ -75,7 +76,7 @@
     <ClInclude Include="LoadImage.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Score.h" />
+    <ClInclude Include="ScoreSave.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Variables.h" />
   </ItemGroup>

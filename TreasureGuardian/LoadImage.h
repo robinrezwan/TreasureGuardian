@@ -11,18 +11,24 @@ void loadImage()
 
 	for (int i = 0; i <= 5; i++)
 	{
-		if (i != 1)
-		{
-			menu_image[i] = iLoadImage(menu_image_location[i]);
-		}
+		menu_image[i] = iLoadImage(menu_image_location[i]);
 	}
 
 	for (int i = 0; i <= 5; i++)
 	{
-			highlight_image[i] = iLoadImage(highlight_image_location[i]);
+		menu_highlight_image[i] = iLoadImage(menu_highlight_image_location[i]);
 	}
 
 	cout << "L"; //Printing loading.
+
+	start_highlight_image[0] = iLoadImage("menu\\highlight\\new_game.png");
+	start_highlight_image[1] = iLoadImage("menu\\highlight\\continue.png");
+
+	back_highlight_image[0] = iLoadImage("menu\\highlight\\back\\1.png");
+	back_highlight_image[1] = iLoadImage("menu\\highlight\\back\\2.png");
+	back_highlight_image[2] = iLoadImage("menu\\highlight\\back\\3.png");
+	back_highlight_image[3] = iLoadImage("menu\\highlight\\back\\4.png");
+	back_highlight_image[4] = iLoadImage("menu\\highlight\\back\\5.png");
 
 	/*_________________________________________________Custom number font rendering.___________________________________________________*/
 
@@ -37,14 +43,14 @@ void loadImage()
 	health_gem2.image = iLoadImage("others\\icons\\health2.png");
 	shield.image = iLoadImage("others\\icons\\shield.png");
 
+	cout << "    O"; //Printing loading.
+
 	/*___________________________________________Score, health, shield and magic object bar.___________________________________________*/
 
 	for (int i = 0; i <= 10; i++)
 	{
 		health_bar[i] = iLoadImage(health_bar_image[i]);
 	}
-
-	cout << "    O"; //Printing loading.
 
 	for (int i = 0; i <= 10; i++)
 	{
@@ -56,12 +62,12 @@ void loadImage()
 	magic_bar[2] = iLoadImage("others\\icons\\magic_bar002.png");
 	magic_bar[3] = iLoadImage("others\\icons\\magic_bar003.png");
 
+	cout << "    A"; //Printing loading.
+
 	score_coin[0] = iLoadImage("others\\icons\\Coin_000.png");
 	score_coin[1] = iLoadImage("others\\icons\\Coin_001.png");
 	score_coin[2] = iLoadImage("others\\icons\\Coin_002.png");
 	score_coin[3] = iLoadImage("others\\icons\\Coin_003.png");
-
-	cout << "    A"; //Printing loading.
 
 	/*___________________________________________________________Explosion.____________________________________________________________*/
 
@@ -75,12 +81,12 @@ void loadImage()
 	map_screen[0] = iLoadImage("others\\screens\\map_screen1.png");
 	map_screen[1] = iLoadImage("others\\screens\\map_screen2.png");
 
-	cout << "    D"; //Printing loading.
-
 	gift_screen = iLoadImage("others\\screens\\land_screen.png");
 	gift_plane[0] = iLoadImage("others\\objects\\bottled_plane.png");
 	gift_plane[1] = iLoadImage("others\\objects\\plane.png");
 	invite = iLoadImage("others\\screens\\invite.png");
+
+	cout << "    D"; //Printing loading.
 
 	/*________________________________________________________Intro Level One__________________________________________________________*/
 
@@ -103,8 +109,6 @@ void loadImage()
 	apple[1] = iLoadImage("intro_level_two\\good_apple.png");
 	ring = iLoadImage("intro_level_two\\ring.png");
 
-	cout << "    I"; //Printing loading.
-
 	/*__________________________________________________________Level One._____________________________________________________________*/
 
 	/*Background for level one.*/
@@ -120,7 +124,7 @@ void loadImage()
 	background_one3[0] = iLoadImage("level_one\\background\\background_one3.png");
 	background_one3[1] = iLoadImage("level_one\\background\\background_one3.png");
 
-	cout << "    N"; //Printing loading.
+	cout << "    I"; //Printing loading.
 
 	/*Magic objects.*/
 
@@ -135,14 +139,12 @@ void loadImage()
 		ground_player.image_idle[i] = iLoadImage(player_idle_image[i]);
 	}
 
-	cout << "    G"; //Printing loading.
-
 	for (int i = 0; i <= 11; i++)
 	{
 		ground_player.image_idleback[i] = iLoadImage(player_idleback_image[i]);
 	}
 
-	cout << "    !"; //Printing loading.
+	cout << "    N"; //Printing loading.
 
 	for (int i = 0; i <= 7; i++)
 	{
@@ -159,7 +161,7 @@ void loadImage()
 		ground_player.image_jumping[i] = iLoadImage(player_jumping_image[i]);
 	}
 
-	cout << "!"; //Printing loading.
+	cout << "    G"; //Printing loading.
 
 	for (int i = 0; i <= 7; i++)
 	{
@@ -178,7 +180,14 @@ void loadImage()
 		enemy_one1.image[i] = iLoadImage(enemy1_image_location[i]);
 	}
 
-	cout << "!\n"; //Printing loading.
+	cout << "    !"; //Printing loading.
+
+	for (int i = 0; i <= 8; i++)
+	{
+		enemy_one2.image[i] = iLoadImage(enemy2_image_location[i]);
+	}
+
+	cout << "!"; //Printing loading.
 
 	for (int i = 0; i <= 8; i++)
 	{
@@ -189,6 +198,8 @@ void loadImage()
 
 	background_two0 = iLoadImage("level_two\\background\\background_two0.png");
 
+	cout << "!\n"; //Printing loading.
+
 	background_two1[0] = iLoadImage("level_two\\background\\background_two1.png");
 	background_two1[1] = iLoadImage("level_two\\background\\background_two1.png");
 
@@ -198,23 +209,27 @@ void loadImage()
 	background_two3[0] = iLoadImage("level_two\\background\\background_two3.png");
 	background_two3[1] = iLoadImage("level_two\\background\\background_two3.png");
 
-	cout << "Loading completed! Enjoy!" << endl;
-
 	/*Characters for level two.*/
+
+	enemy_image_level2 = iLoadImage("level_two\\enemy\\enemy_000.png");
+	bomb_image = iLoadImage("level_one\\enemy\\bomb.png");
 
 	for (int i = 0; i <= 7; i++)
 	{
 		flying_player.image_plane[i] = iLoadImage(player_plane_image[i]);
 	}
 
-	enemy_image_level2 = iLoadImage("level_two\\enemy\\enemy_000.png");
-	bomb_image = iLoadImage("level_one\\enemy\\bomb.png");
+	cout << "Loading completed! Enjoy!" << endl;
 
 	/*___________________________________________________________Game Over_____________________________________________________________*/
 
 	game_over_image[0] = iLoadImage("game_over\\game_over0.png");
 	game_over_image[1] = iLoadImage("game_over\\game_over1.png");
 	game_over_image[2] = iLoadImage("game_over\\game_over2.png");
+
+	game_over_highlight_image[0] = iLoadImage("game_over\\highlight\\game_over0.png");
+	game_over_highlight_image[1] = iLoadImage("game_over\\highlight\\game_over1.png");
+	game_over_highlight_image[2] = iLoadImage("game_over\\highlight\\game_over2.png");
 
 	/*Game pause and resume.*/
 

@@ -5,7 +5,7 @@
 //using namespace std;
 
 //#include "Variables.h"
-#include "Score.h"
+#include "ScoreSave.h"
 #include "Sound.h"
 
 /*______________________________________________Function for checking score rank.______________________________________________________*/
@@ -88,7 +88,31 @@ void gameOver()
 	if (ground_player.health <= 0 && menu_option != 0) //Checking if the game is over.
 	{
 		game_over = true;
+
+		//Resetting conditions.
 		level = 0;
+		intro_level = 0;
+		show_map = 0;
+		show_gift = 0;
+
+		ground_player.health = 100;
+		player_distance = 0;
+
+		intro_player.x = 160;
+		intro_player.y = 30;
+
+		ground_player.x = 160;
+
+		flying_player.x = 160;
+		flying_player.y = 520;
+
+		goblin.reset(1390, 662, true, 24, 0);
+
+		magic_stone.resetMagicObject(1600, 45, 89, 120, false, false);
+		magic_chest.resetMagicObject(1600, 48, 132, 195, false, false);
+		magic_key.resetMagicObject(1600, 65, 72, 120, false, false);
+
+		eraseGame(); //Erasing saved game.
 	}
 
 	if (game_over)
@@ -110,6 +134,11 @@ void gameOver()
 		//cout << "Player rank: " << player_rank << endl;
 
 		iShowImage(0, 0, SCREEN_WIDTH, SCREEN_HIGHT, game_over_image[game_over_index]); //Shows the game over screen.
+
+		if (game_over_highlight_index <= 2)
+		{
+			iShowImage(0, 0, SCREEN_WIDTH, SCREEN_HIGHT, game_over_highlight_image[game_over_index]); //Highlights the home button in game over screen.
+		}
 
 		//Shows the score on the game over screen.
 		char score_string[20];

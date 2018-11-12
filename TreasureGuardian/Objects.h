@@ -38,7 +38,18 @@ struct Objects
 		state = _state;
 		taken = _taken;
 	}
-} health_gem1(482, 370, 40, 43, 10, false), health_gem2(600, 370, 60, 67, 30, false), shield(1000, 370, 55, 65, 1, false), magic_stone(1600, 45, 89, 120, false, false), magic_chest(1600, 48, 132, 195, 1, false), magic_key(1600, 65, 72, 120, false, false);
+
+	void resetMagicObject(int _x, int _y, int _dimension_x, int _dimension_y, bool _state, bool _taken)
+	{
+		//This setter method is for magic objects.
+		x = _x;
+		y = _y;
+		dimension_x = _dimension_x;
+		dimension_y = _dimension_y;
+		state = _state;
+		taken = _taken;
+	}
+} health_gem1(482, 370, 40, 43, 10, false), health_gem2(600, 370, 60, 67, 30, false), shield(1000, 370, 55, 65, 1, false), magic_stone(1600, 45, 89, 120, false, false), magic_chest(1600, 48, 132, 195, false, false), magic_key(1600, 65, 72, 120, false, false);
 
 /*___________________________________________________Changes health gem's position.____________________________________________________*/
 

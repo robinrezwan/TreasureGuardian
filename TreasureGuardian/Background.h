@@ -47,10 +47,9 @@ void changeBackgroundOne3()
 		health_gem2.x -= 1;
 		shield.x -= 1;
 
+		enemy_one1.x -= 1;
 		enemy_one2.x -= 1;
 		enemy_one3.x -= 1;
-		/*enemy1.x -= 1;
-		enemy4.x -= 1;*/
 
 		if (magic_stone.state)
 		{
@@ -109,10 +108,9 @@ void changeBackgroundOneBack3()
 		health_gem2.x += 1;
 		shield.x += 1;
 
+		enemy_one1.x += 1;
 		enemy_one2.x += 1;
 		enemy_one3.x += 1;
-		/*enemy1.x += 1;
-		enemy4.x += 1;*/
 
 		if (magic_stone.state)
 		{

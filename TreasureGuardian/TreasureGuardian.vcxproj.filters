@@ -56,13 +56,16 @@
     <ClInclude Include="LevelTwo.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Score.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Objects.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="IntroLevels.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSave.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreSave.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

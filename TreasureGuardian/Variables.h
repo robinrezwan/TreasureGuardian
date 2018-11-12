@@ -14,14 +14,18 @@ int timer_ten_mili, timer_twenty_mili, timer_forty_mili, timer_hundred_mili, tim
 
 int level = 0;
 
-char menu_image_location[][23] = { "menu\\menu.png", "blank", "menu\\high_scores.png", "menu\\story.png", "menu\\controls.png", "menu\\about.png" };
-int menu_image[6];
+char menu_image_location[][23] = { "menu\\menu.png", "menu\\start.png", "menu\\high_scores.png", "menu\\story.png", "menu\\controls.png", "menu\\about.png" };
+int menu_image[7];
 
 int menu_option = 0;
 
-int menu_highlight = 6;
-char highlight_image_location[][14] = { "menu\\1.png", "menu\\2.png", "menu\\3.png", "menu\\4.png", "menu\\5.png", "menu\\6.png" };
-int highlight_image[7];
+int highlight_index = 6;
+int start_highlight_index = 3;
+int back_highlight_index = 5;
+char menu_highlight_image_location[][25] = { "menu\\highlight\\1.png", "menu\\highlight\\2.png", "menu\\highlight\\3.png", "menu\\highlight\\4.png", "menu\\highlight\\5.png", "menu\\highlight\\6.png" };
+int menu_highlight_image[7];
+int start_highlight_image[3];
+int back_highlight_image[6];
 
 /*Sound*/
 
@@ -71,7 +75,7 @@ bool exploded3 = false;
 bool exploded4 = false;
 bool exploded5 = false;
 bool exploded6 = false;
-char fire_image_location[21][30]= { "others\\fire\\fire_001_01.png", "others\\fire\\fire_001_02.png",
+char fire_image_location[21][30] = { "others\\fire\\fire_001_01.png", "others\\fire\\fire_001_02.png",
 "others\\fire\\fire_001_03.png", "others\\fire\\fire_001_04.png", "others\\fire\\fire_001_05.png",
 "others\\fire\\fire_001_06.png", "others\\fire\\fire_001_07.png", "others\\fire\\fire_001_08.png",
 "others\\fire\\fire_001_09.png", "others\\fire\\fire_001_10.png", "others\\fire\\fire_001_11.png",
@@ -118,7 +122,7 @@ char goblin_image_location[][34] = { "intro_level_one\\goblin_000.png", "intro_l
 
 int intro_two_background;
 int apple[3];
-int apple_index1, apple_index2, apple_index3, apple_index4, apple_index5, apple_index6, apple_index7, apple_index8, apple_index9, apple_index10, apple_index11;
+int apple_index1 = 0, apple_index2 = 1, apple_index3 = 0, apple_index4 = 1, apple_index5 = 0, apple_index6 = 1, apple_index7 = 0, apple_index8 = 1, apple_index9 = 0, apple_index10 = 1, apple_index11 = 0;
 int show_apple;
 int apple_count;
 char apple_string[10];
@@ -218,6 +222,10 @@ char enemy1_image_location[][39] = { "level_one\\enemy\\enemy_1\\WALK_000.png", 
 "level_one\\enemy\\enemy_1\\WALK_003.png", "level_one\\enemy\\enemy_1\\WALK_004.png", "level_one\\enemy\\enemy_1\\WALK_005.png", "level_one\\enemy\\enemy_1\\WALK_006.png",
 "level_one\\enemy\\enemy_1\\WALK_007.png", "level_one\\enemy\\enemy_1\\WALK_008.png" };
 
+char enemy2_image_location[][39] = { "level_one\\enemy\\enemy_2\\WALK_000.png", "level_one\\enemy\\enemy_2\\WALK_001.png", "level_one\\enemy\\enemy_2\\WALK_002.png",
+"level_one\\enemy\\enemy_2\\WALK_003.png", "level_one\\enemy\\enemy_2\\WALK_004.png", "level_one\\enemy\\enemy_2\\WALK_005.png", "level_one\\enemy\\enemy_2\\WALK_006.png",
+"level_one\\enemy\\enemy_2\\WALK_007.png", "level_one\\enemy\\enemy_2\\WALK_008.png" };
+
 char enemy3_image_location[][39] = { "level_one\\enemy\\enemy_3\\WALK_000.png", "level_one\\enemy\\enemy_3\\WALK_001.png", "level_one\\enemy\\enemy_3\\WALK_002.png",
 "level_one\\enemy\\enemy_3\\WALK_003.png", "level_one\\enemy\\enemy_3\\WALK_004.png", "level_one\\enemy\\enemy_3\\WALK_005.png", "level_one\\enemy\\enemy_3\\WALK_006.png",
 "level_one\\enemy\\enemy_3\\WALK_007.png", "level_one\\enemy\\enemy_3\\WALK_008.png" };
@@ -273,7 +281,10 @@ bool crash1, crash2, crash3;
 
 bool game_over = false;
 int game_over_image[3];
-int game_over_index = 0;
+int game_over_index = 3;
+
+int game_over_highlight_index = 3;
+int game_over_highlight_image[4];
 
 int player_rank = 0;
 int star_image[6];

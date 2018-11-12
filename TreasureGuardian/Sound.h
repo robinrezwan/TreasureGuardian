@@ -9,7 +9,7 @@ void controlSound(bool play_sound)
 	{
 		if (play_sound)
 		{
-			if (menu_option == 0 || (menu_option >= 2 && menu_option <= 5))
+			if (menu_option >= 0 && menu_option <= 5)
 			{
 				PlaySound("sound\\intro_music.wav", NULL, SND_LOOP | SND_ASYNC); //The soundtrack is "Warrior" by Randy Dominguez.
 			}

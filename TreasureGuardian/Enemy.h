@@ -30,15 +30,34 @@ struct Enemy
 		value = _value;
 		index = _index;
 	}
+
+	void reset(int _x, int _y, bool _state, int _value, int _index)
+	{
+		//This setter method is for intro level goblin.
+		x = _x;
+		y = _y;
+		state = _state;
+		value = _value;
+		index = _index;
+	}
 }enemy_one1(1820, 68, true, 10, 0), enemy_one2(1720, 68, true, 10, 0), enemy_one3(1620, 68, true, 10, 0), enemy_two1(1820, 520, true, 10, 0), enemy_two2(1820, 675, true, 10, 0), enemy_two3(1820, 557, true, 10, 0), goblin(1390, 662, true, 24, 0);
 
 /*_____________________________________________________Showing enemy for level one.____________________________________________________*/
 
 void showEnemyOne()
 {
-	//iShowImage(enemy1.x, enemy1.y, 120, 130, enemy_image);
+	iShowImage(enemy_one1.x, enemy_one1.y, 190, 135, enemy_one2.image[enemy_one2.index]);
 	iShowImage(enemy_one2.x, enemy_one2.y, 180, 135, enemy_one1.image[enemy_one1.index]);
 	iShowImage(enemy_one3.x, enemy_one3.y, 170, 135, enemy_one3.image[enemy_one3.index]);
+
+	if (enemy_one1.x <= 1430)
+	{
+		enemy_one1.state = true;
+	}
+	else
+	{
+		enemy_one1.state = false;
+	}
 
 	if (enemy_one2.x <= 1430)
 	{
@@ -65,7 +84,7 @@ void changeEnemyPosition()
 
 	if (choose_call % 1 == 0)
 	{
-		enemy_one1.x -= 2;
+		enemy_one1.x -= 3;
 
 		if (enemy_one1.x <= -130)
 		{
@@ -83,13 +102,25 @@ void changeEnemyPosition()
 		}
 	}
 
-	if (choose_call % 3 == 0)
+	if (choose_call % 2 == 0)
 	{
 		enemy_one3.x -= 4;
 
 		if (enemy_one3.x <= -130)
 		{
 			enemy_one3.x = 1520;
+		}
+	}
+
+	//Enemy image index changing.
+
+	if (choose_call % 3 == 0)
+	{
+		enemy_one2.index++;
+
+		if (enemy_one2.index > 8)
+		{
+			enemy_one2.index = 0;
 		}
 	}
 
@@ -127,6 +158,34 @@ void playerEnemyCollision()
 {
 	/*Crossing from front.*/
 
+	if (checkCollision(enemy_one1.x, enemy_one1.y, 190, 135, ground_player.x + ground_player.extended_x, ground_player.y + ground_player.extended_y, ground_player.dimension_x, ground_player.dimension_y))
+	{
+		if (ground_player.condition != 4 && ground_player.condition != 6 && ground_player.condition != 5 && ground_player.condition != 7)
+		{
+			if (!active_shield)
+			{
+				if (ground_player.health >= 10)
+				{
+					ground_player.health -= 10;
+				}
+				else
+				{
+					ground_player.health = 0;
+				}
+			}
+			else
+			{
+				shield_count--;
+				if (shield_count <= 0)
+				{
+					active_shield = false;
+				}
+			}
+			enemy_one1.state = false;
+			enemy_one1.x = 1580 + rand() % 120;
+		}
+	}
+
 	if (checkCollision(enemy_one2.x, enemy_one2.y, 180, 135, ground_player.x + ground_player.extended_x, ground_player.y + ground_player.extended_y, ground_player.dimension_x, ground_player.dimension_y))
 	{
 		if (ground_player.condition != 4 && ground_player.condition != 6 && ground_player.condition != 5 && ground_player.condition != 7)
@@ -151,7 +210,7 @@ void playerEnemyCollision()
 				}
 			}
 			enemy_one2.state = false;
-			enemy_one2.x = 1580 + rand() % 120;
+			enemy_one2.x = 1580 + rand() % 420;
 		}
 	}
 
@@ -185,6 +244,34 @@ void playerEnemyCollision()
 
 	/*Crossing from back.*/
 
+	if (checkCollision(enemy_one1.x, enemy_one1.y, 190, 135, ground_player.x + ground_player.extended_x, ground_player.y + ground_player.extended_y, ground_player.dimension_x, ground_player.dimension_y))
+	{
+		if (ground_player.condition != 4 && ground_player.condition != 6 && ground_player.condition != 5 && ground_player.condition != 7)
+		{
+			if (!active_shield)
+			{
+				if (ground_player.health >= 10)
+				{
+					ground_player.health -= 10;
+				}
+				else
+				{
+					ground_player.health = 0;
+				}
+			}
+			else
+			{
+				shield_count--;
+				if (shield_count <= 0)
+				{
+					active_shield = false;
+				}
+			}
+			enemy_one1.state = false;
+			enemy_one1.x = 1580 + rand() % 120;
+		}
+	}
+
 	if (checkCollision(enemy_one3.x, enemy_one3.y, 180, 135, ground_player.x + ground_player.extended_x, ground_player.y + ground_player.extended_y, ground_player.dimension_x, ground_player.dimension_y))
 	{
 		if (ground_player.condition != 4 && ground_player.condition != 6 && ground_player.condition != 5 && ground_player.condition != 7)
@@ -209,7 +296,7 @@ void playerEnemyCollision()
 				}
 			}
 			enemy_one3.state = false;
-			enemy_one3.x = 1580 + rand() % 120;
+			enemy_one3.x = 1580 + rand() % 420;
 		}
 	}
 
@@ -315,7 +402,7 @@ void changeEnemyPosition2() {
 			enemy_two3.y = 352 + rand() % 340;
 		}
 	}
-	
+
 	choose_call++;
 
 	if (choose_call >= 2520)

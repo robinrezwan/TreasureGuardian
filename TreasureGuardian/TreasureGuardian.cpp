@@ -73,7 +73,7 @@ void iDraw()
 
 		if (!gift_taken)
 		{
-			iShowImage(1240, 30, 240, 100, gift_plane[0]);
+			iShowImage(1240, 34, 240, 100, gift_plane[0]);
 			showIntroPlayer();
 		}
 		else
@@ -276,6 +276,7 @@ void iMouse(int button, int state, int mx, int my)
 					ground_player.score = 0;
 					ground_player.health = 100;
 					player_distance = 0;
+					gift_taken = false;
 
 					intro_player.x = 160;
 					intro_player.y = 30;
@@ -664,6 +665,7 @@ void iSpecialKeyboard(unsigned char key)
 			ground_player.score = 0;
 			ground_player.health = 100;
 			player_distance = 0;
+			gift_taken = false;
 
 			intro_player.x = 160;
 			intro_player.y = 30;

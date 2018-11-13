@@ -321,6 +321,9 @@ void levelOne()
 		player_distance = 0;
 		shield_count = 0;
 
+		intro_player.x = 160;
+		intro_player.y = 30;
+
 		ground_player.x = 160;
 
 		saveGame(); //To save the game progress.

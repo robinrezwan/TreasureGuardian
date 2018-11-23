@@ -320,6 +320,7 @@ void levelOne()
 		ground_player.health = 100;
 		player_distance = 0;
 		shield_count = 0;
+		active_shield = false;
 
 		intro_player.x = 160;
 		intro_player.y = 30;

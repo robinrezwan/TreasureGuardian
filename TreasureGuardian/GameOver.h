@@ -97,6 +97,8 @@ void gameOver()
 
 		ground_player.health = 100;
 		player_distance = 0;
+		shield_count = 0;
+		active_shield = false;
 
 		intro_player.x = 160;
 		intro_player.y = 30;
@@ -105,6 +107,13 @@ void gameOver()
 
 		flying_player.x = 160;
 		flying_player.y = 520;
+
+		jump = false;
+		jumping = false;
+		jumping_height = 0;
+
+		intro_player.condition = 0;
+		ground_player.condition = 0;
 
 		goblin.reset(1390, 662, true, 24, 0);
 

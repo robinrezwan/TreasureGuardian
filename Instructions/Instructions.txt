@@ -1,0 +1,5 @@
+To run this project with any version of Visual Studio without trouble:
+
+1. It is recommended that you have Visual Studio 2010 installed in your computer. You can also run the project with any other version of Visual Studio (2012/2013/2015/2017/2019), if you have Visual Studio 2010 installed in your computer.
+2. Do not upgrade Windows SDK Version and Platform Toolset if asked when running with any other version than Visual Studio 2010.
+3. Copy the .lib files from this folder to "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Lib", if you have not done it already.

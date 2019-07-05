@@ -1,13 +1,16 @@
 /*
-Treasure Guardian
-A single player 2D action-adventure game.
+	Treasure Guardian
+	A single player 2D action-adventure game.
 
-Version: 2.5.0
+	Version: 2.5.0
 
-Original Authors:
-Robin Rezwan
-Samiul Islam Niloy
-Al Noman Limon
+	Original Authors:
+
+	Robin Rezwan
+	Samiul Islam Niloy
+	Al Noman Limon
+
+	Project GitHub: http://github.com/robinrezwan/TreasureGuardian
 */
 
 #define _CRT_SECURE_NO_WARNINGS
